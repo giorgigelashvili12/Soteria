@@ -47,6 +47,7 @@ export default function Dashboard() {
           } else {
             const serverMsg = e.response?.data?.msg || "Server Error";
             console.error(`Error ${status}: ${serverMsg}`);
+            nav("/login");
           }
         } else {
           console.error("Native JS Error:", e);
