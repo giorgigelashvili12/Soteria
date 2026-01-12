@@ -141,6 +141,7 @@ export const signup = async (req: Request, res: Response) => {
       maxAge: 86400000,
       sameSite: "none",
       httpOnly: true,
+      secure: true,
     });
 
     res.status(201).json({
@@ -180,8 +181,9 @@ export const login = async (req: Request, res: Response) => {
     );
     res.cookie("hs", token, {
       maxAge: 86400000,
-      httpOnly: true,
       sameSite: "none",
+      httpOnly: true,
+      secure: true,
     });
 
     res.status(200).json({
