@@ -13,7 +13,7 @@ export default function Workspace() {
     const fetchW = async () => {
       try {
         const res = await axios.get(
-          `https://soteria-back.vercel.app/api/v1/workspace/${id}`,
+          `https://soteria-q27e.onrender.com/api/v1/workspace/${id}`,
           { withCredentials: true },
         );
         setWorkspace(res.data.workspace);

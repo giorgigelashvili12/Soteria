@@ -15,7 +15,7 @@ const Analytics = ({ workspaceId }: { workspaceId: string }) => {
     const fetchStats = async () => {
       try {
         const res = await axios.get(
-          `https://soteria-back.vercel.app/api/v1/invitation/invitations/${workspaceId}`,
+          `https://soteria-q27e.onrender.com/api/v1/invitation/invitations/${workspaceId}`,
         );
 
         setStats(res.data);

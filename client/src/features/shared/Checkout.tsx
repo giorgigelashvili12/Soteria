@@ -16,7 +16,7 @@ const CheckoutPage = () => {
     const fetchIntent = async () => {
       try {
         const res = await fetch(
-          `https://soteria-back.vercel.app/api/v1/payment-intent/${clientSecret}`,
+          `https://soteria-q27e.onrender.com/api/v1/payment-intent/${clientSecret}`,
         );
         if (!res.ok) throw new Error();
         const data = await res.json();
@@ -34,7 +34,7 @@ const CheckoutPage = () => {
     setStatus("processing");
     try {
       const res = await fetch(
-        "https://soteria-back.vercel.app/api/v1/payment-intent/confirm",
+        "https://soteria-q27e.onrender.com/api/v1/payment-intent/confirm",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

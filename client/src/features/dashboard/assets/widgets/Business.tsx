@@ -26,7 +26,7 @@ export default function Business({ user, membership }: BusinessProps) {
   const logout = async () => {
     try {
       await axios.post(
-        "https://soteria-back.vercel.app/api/v1/auth/logout",
+        "https://soteria-q27e.onrender.com/api/v1/auth/logout",
         {},
         { withCredentials: true },
       );

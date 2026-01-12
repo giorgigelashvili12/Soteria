@@ -38,7 +38,7 @@ export default function VerifyEmail() {
     const verify = async (email: string, token: string) => {
       try {
         const res = await fetch(
-          "https://soteria-back.vercel.app/api/v1/auth/verify-email",
+          "https://soteria-q27e.onrender.com/api/v1/auth/verify-email",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

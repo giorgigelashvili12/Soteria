@@ -12,7 +12,7 @@ export function RemoveMember({ member, onRefresh }: RemoveMemberProps) {
     setLoading(true);
     try {
       await axios.post(
-        `https://soteria-back.vercel.app/api/v1/membership/remove/${member._id}`,
+        `https://soteria-q27e.onrender.com/api/v1/membership/remove/${member._id}`,
         {
           reason,
         },

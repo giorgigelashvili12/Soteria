@@ -16,7 +16,7 @@ export function ChangeRole({
     setLoading(true);
     try {
       await axios.patch(
-        `https://soteria-back.vercel.app/api/v1/workspace/membership/${membershipId}/role`,
+        `https://soteria-q27e.onrender.com/api/v1/workspace/membership/${membershipId}/role`,
         { newRole: role },
         { withCredentials: true },
       );

@@ -19,7 +19,7 @@ export default function Profile() {
     const loadProfile = async () => {
       try {
         const res = await fetch(
-          "https://soteria-back.vercel.app/api/v1/auth/profile",
+          "https://soteria-q27e.onrender.com/api/v1/auth/profile",
           {
             credentials: "include",
           },

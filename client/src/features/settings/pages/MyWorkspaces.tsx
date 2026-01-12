@@ -16,7 +16,7 @@ export default function MyWorkspaces() {
   useEffect(() => {
     const workspaces = async () => {
       const res = await axios.get(
-        "https://soteria-back.vercel.app/api/v1/workspace/mine",
+        "https://soteria-q27e.onrender.com/api/v1/workspace/mine",
         { withCredentials: true },
       );
       console.log(res.data);

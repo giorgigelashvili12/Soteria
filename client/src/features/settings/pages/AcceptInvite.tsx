@@ -24,7 +24,7 @@ export default function AcceptInvite() {
         }
 
         const res = await axios.post(
-          `https://soteria-back.vercel.app/api/v1/invitation/accept/${token}`,
+          `https://soteria-q27e.onrender.com/api/v1/invitation/accept/${token}`,
           {},
           { withCredentials: true },
         );

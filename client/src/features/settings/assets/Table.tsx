@@ -33,13 +33,13 @@ export default function WorkspaceTable() {
         setLoading(true);
 
         const res = await axios.get(
-          `https://soteria-back.vercel.app/api/v1/membership/${workspaceId}/members`,
+          `https://soteria-q27e.onrender.com/api/v1/membership/${workspaceId}/members`,
           { withCredentials: true },
         );
         setMembers(res.data.members ?? res.data ?? []);
 
         const profileRes = await axios.get(
-          "https://soteria-back.vercel.app/api/v1/auth/profile",
+          "https://soteria-q27e.onrender.com/api/v1/auth/profile",
           { withCredentials: true },
         );
 

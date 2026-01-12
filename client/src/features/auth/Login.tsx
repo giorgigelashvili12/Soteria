@@ -20,7 +20,7 @@ export default function Login() {
     const check = async () => {
       try {
         const res = await fetch(
-          `https://soteria-back.vercel.app/api/v1/auth/profile`,
+          `https://soteria-q27e.onrender.com/api/v1/auth/profile`,
           {
             method: "GET",
             credentials: "include",
@@ -56,7 +56,7 @@ export default function Login() {
 
     try {
       const res = await fetch(
-        `https://soteria-back.vercel.app/api/v1/auth/login`,
+        `https://soteria-q27e.onrender.com/api/v1/auth/login`,
         {
           method: "POST",
           headers: {

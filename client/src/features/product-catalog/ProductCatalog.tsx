@@ -57,7 +57,7 @@ export default function ProductCatalog() {
     const loadProducts = async () => {
       try {
         const res = await fetch(
-          "https://soteria-back.vercel.app/api/v1/products/all",
+          "https://soteria-q27e.onrender.com/api/v1/products/all",
           {
             credentials: "include",
           },
@@ -109,7 +109,7 @@ export default function ProductCatalog() {
   const handleAddProduct = async () => {
     try {
       const res = await fetch(
-        "https://soteria-back.vercel.app/api/v1/products/",
+        "https://soteria-q27e.onrender.com/api/v1/products/",
         {
           method: "POST",
           credentials: "include",
@@ -159,7 +159,7 @@ export default function ProductCatalog() {
 
     try {
       const res = await fetch(
-        "https://soteria-back.vercel.app/api/v1/products/",
+        "https://soteria-q27e.onrender.com/api/v1/products/",
         {
           method: "DELETE",
           body: JSON.stringify({ id }),

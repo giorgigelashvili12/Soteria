@@ -48,7 +48,7 @@ export default function VerifyPin() {
 
     try {
       const res = await axios.post(
-        "https://soteria-back.vercel.app/api/v1/auth/verify-email",
+        "https://soteria-q27e.onrender.com/api/v1/auth/verify-email",
         { email, token },
         { withCredentials: true },
       );

@@ -26,7 +26,7 @@ export default function InviteMember({
 
     try {
       const res = await axios.post(
-        "https://soteria-back.vercel.app/api/v1/membership/invite",
+        "https://soteria-q27e.onrender.com/api/v1/membership/invite",
         {
           email: email.trim().toLowerCase(),
           role,
@@ -40,7 +40,7 @@ export default function InviteMember({
         console.error("id is missing");
       }
 
-      setInviteLink(`https://soteria-tan.vercel.app/accept-invite/${id}`);
+      setInviteLink(`https://soteria-q27e.onrender.com/accept-invite/${id}`);
       Success("Invitation sent");
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
