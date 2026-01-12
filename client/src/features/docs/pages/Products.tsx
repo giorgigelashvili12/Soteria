@@ -7,10 +7,10 @@ import {
   syncCatalog,
   deprecated2,
 } from "../assets/codes";
-import img1 from "src/assets/images/catalog.png";
-import img2 from "src/assets/images/dedicated-page.png";
-import img3 from "src/assets/images/create-product.png";
-import img4 from "src/assets/images/properties.png";
+import img1 from "../../src/assets/images/catalog.png";
+import img2 from "../../src/assets/images/dedicated-page.png";
+import img3 from "../../src/assets/images/create-product.png";
+import img4 from "../../src/assets/images/properties.png";
 
 export default function Products() {
   return (
