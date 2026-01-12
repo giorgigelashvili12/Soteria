@@ -1,6 +1,6 @@
 import { frontModule, frontSnippet, showcase1 } from "../assets/codes";
 import CodeWindow from "../assets/CodeWindow";
-import img from "../../src/assets/images/showcase.png";
+import img from "../../../assets/images/showcase.png";
 
 export default function Front() {
   return (

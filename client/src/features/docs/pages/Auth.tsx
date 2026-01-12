@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Key } from "lucide-react";
-import img1 from "../../src/assets/images/login.png";
-import img2 from "../../src/assets/images/workspace.png";
-import img3 from "../../src/assets/images/account.png";
+import img1 from "../../../assets/images/login.png";
+import img2 from "../../../assets/images/workspace.png";
+import img3 from "../../../assets/images/account.png";
 
 export default function Auth() {
   return (
