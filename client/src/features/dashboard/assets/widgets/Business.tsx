@@ -65,7 +65,7 @@ export default function Business({ user, membership }: BusinessProps) {
           <div className="flex flex-col items-center w-full gap-1.5">
             <Button className="bg-white text-stone-700 hover:bg-stone-200 cursor-pointer w-full flex justify-start">
               <Link
-                to="http://localhost:5173/dashboard/settings"
+                to="/dashboard/settings"
                 className="flex justify-start items-center"
               >
                 <Settings className="size-4.5 mr-2" /> Settings

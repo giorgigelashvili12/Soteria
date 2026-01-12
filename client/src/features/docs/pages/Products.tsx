@@ -7,6 +7,10 @@ import {
   syncCatalog,
   deprecated2,
 } from "../assets/codes";
+import img1 from "src/assets/images/catalog.png";
+import img2 from "src/assets/images/dedicated-page.png";
+import img3 from "src/assets/images/create-product.png";
+import img4 from "src/assets/images/properties.png";
 
 export default function Products() {
   return (
@@ -29,7 +33,7 @@ export default function Products() {
         </p>
         <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
           <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src="src/assets/images/catalog.png" />
+            <img src={img1} />
           </div>
         </div>
         {/*         */}
@@ -38,7 +42,7 @@ export default function Products() {
         </p>
         <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
           <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src="src/assets/images/dedicated-page.png" />
+            <img src={img2} />
           </div>
         </div>
         {/*         */}
@@ -48,7 +52,7 @@ export default function Products() {
         </p>
         <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
           <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src="src/assets/images/create-product.png" />
+            <img src={img3} />
           </div>
         </div>
         {/*         */}
@@ -58,7 +62,7 @@ export default function Products() {
         </p>
         <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
           <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src="src/assets/images/properties.png" />
+            <img src={img4} />
           </div>
         </div>
       </section>

@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { Key } from "lucide-react";
+import img1 from "src/assets/images/login.png";
+import img2 from "src/assets/images/workspace.png";
+import img3 from "src/assets/images/account.png";
 
 export default function Auth() {
   return (
@@ -44,7 +47,7 @@ export default function Auth() {
 
           <div className="mt-12 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
             <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-              <img src="src/assets/images/login.png" />
+              <img src={img1} />
             </div>
           </div>
         </div>
@@ -73,7 +76,7 @@ export default function Auth() {
           </div>
           <div className="mt-12 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
             <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-              <img className="w-100" src="src/assets/images/workspace.png" />
+              <img className="w-100" src={img2} />
             </div>
           </div>
         </div>
@@ -114,7 +117,7 @@ export default function Auth() {
           </div>
           <div className="mt-12 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
             <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-              <img src="src/assets/images/account.png" />
+              <img src={img3} />
             </div>
           </div>
         </div>

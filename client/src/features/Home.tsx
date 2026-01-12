@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 
 export default function Home() {
@@ -6,7 +6,6 @@ export default function Home() {
     <>
       <Toaster position="bottom-left" richColors />
       <Outlet />
-      <Link to="/dashboard">Test</Link>
     </>
   );
 }

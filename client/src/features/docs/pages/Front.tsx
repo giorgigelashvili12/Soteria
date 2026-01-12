@@ -1,5 +1,6 @@
 import { frontModule, frontSnippet, showcase1 } from "../assets/codes";
 import CodeWindow from "../assets/CodeWindow";
+import img from "src/assets/images/showcase.png";
 
 export default function Front() {
   return (
@@ -34,7 +35,7 @@ export default function Front() {
 
         <div className="mt-12 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
           <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src="src/assets/images/showcase.png" />
+            <img src={img} />
           </div>
         </div>
       </div>
