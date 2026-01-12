@@ -6,17 +6,17 @@ import img3 from "../../../assets/images/account.png";
 
 export default function Auth() {
   return (
-    <div>
+    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-4">
           <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20">
             Setup Guide
           </span>
         </div>
-        <h1 className="text-5xl font-black text-white mb-6 tracking-tight">
+        <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
           ავტორიზაცია
         </h1>
-        <p className="text-lg text-slate-400 max-w-2xl">
+        <p className="text-base md:text-lg text-slate-400 max-w-2xl leading-relaxed">
           Soteria API-სთან ინტეგრაციისთვის პირველ რიგში დაგჭირდებათ
           ავთენტიკაციის გასაღები (Passkey) და საიდუმლო გასაღები რომელიც ასევე
           აუცილებელია (Secret Key). მიჰყევით ქვემოთ მოცემულ ნაბიჯებს მის
@@ -24,14 +24,16 @@ export default function Auth() {
         </p>
       </div>
 
-      <div className="space-y-6">
-        <div className="group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all">
-          <div className="flex gap-4">
+      <div className="space-y-8 md:space-y-12">
+        <div className="group relative p-4 md:p-8 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all">
+          <div className="flex flex-col md:flex-row gap-4">
             <div className="shrink-0 w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 font-bold">
               1
             </div>
             <div>
-              <h3 className="text-white font-bold mb-1">ექაუნთის შექმნა</h3>
+              <h3 className="text-white text-lg font-bold mb-2">
+                ექაუნთის შექმნა
+              </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
                 დარეგისტრირდით პლატფორმაზე:{" "}
                 <Link
@@ -45,20 +47,24 @@ export default function Auth() {
             </div>
           </div>
 
-          <div className="mt-12 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
-            <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-              <img src={img1} />
+          <div className="mt-8 md:mt-12 rounded-xl md:rounded-3xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-slate-800 flex items-center justify-center overflow-hidden">
+              <img
+                src={img1}
+                alt="Login guide"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
 
-        <div className="group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all">
-          <div className="flex gap-4">
+        <div className="group relative p-4 md:p-8 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all">
+          <div className="flex flex-col md:flex-row gap-4">
             <div className="shrink-0 w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 font-bold">
               2
             </div>
             <div>
-              <h3 className="text-white font-bold mb-1">
+              <h3 className="text-white text-lg font-bold mb-2">
                 სამუშაო სივრცე (Workspace)
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
@@ -74,20 +80,24 @@ export default function Auth() {
               </p>
             </div>
           </div>
-          <div className="mt-12 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
-            <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-              <img className="w-100" src={img2} />
+          <div className="mt-8 md:mt-12 rounded-xl md:rounded-3xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-slate-800 flex items-center justify-center overflow-hidden">
+              <img
+                src={img2}
+                alt="Workspace guide"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
 
-        <div className="group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all">
-          <div className="flex gap-4">
+        <div className="group relative p-4 md:p-8 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all">
+          <div className="flex flex-col md:flex-row gap-4">
             <div className="shrink-0 w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 font-bold">
               3
             </div>
             <div>
-              <h3 className="text-white font-bold mb-1">
+              <h3 className="text-white text-lg font-bold mb-2">
                 პარამეტრები და გასაღები
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-4">
@@ -115,9 +125,13 @@ export default function Auth() {
               </div>
             </div>
           </div>
-          <div className="mt-12 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
-            <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-              <img src={img3} />
+          <div className="mt-8 md:mt-12 rounded-xl md:rounded-3xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-slate-800 flex items-center justify-center overflow-hidden">
+              <img
+                src={img3}
+                alt="Account settings"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>

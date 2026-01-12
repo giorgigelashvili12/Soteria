@@ -3,7 +3,7 @@ import CodeWindow from "../assets/CodeWindow";
 import { checkoutCode } from "../assets/codes";
 import {
   createCheckout,
-  getCheckoutUrl,
+  //getCheckoutUrl,
   syncCatalog,
   deprecated2,
 } from "../assets/codes";
@@ -14,318 +14,232 @@ import img4 from "../../../assets/images/properties.png";
 
 export default function Products() {
   return (
-    <div className="space-y-20">
+    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 space-y-16 md:space-y-24 text-slate-300">
       <section id="test-mode">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="px-2 py-1 rounded bg-yellow-500/10 text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
+        <div className="flex items-center gap-2 mb-6">
+          <span className="px-2 py-1 rounded bg-yellow-500/10 text-yellow-500 text-[10px] font-bold uppercase tracking-widest border border-yellow-500/20">
             Test Mode
           </span>
           <span className="text-slate-600 text-xs">v1.0.0</span>
         </div>
-        <h2 className="text-2xl font-bold mb-5">
-          პროდუქტების დამატება სიაში (Product Catalog)
+
+        <h2 className="text-2xl md:text-3xl font-black text-white mb-6 tracking-tight">
+          პროდუქტების დამატება (Product Catalog)
         </h2>
 
-        <p>
-          რათა დაამატოთ პროდუქტი მოცემულ სიაში, უნდა გადახვიდეთ კონკრეტულ{" "}
-          <Link to="/dashboard/product-catalog">მისამართზე</Link> ან გამოიყენოთ
-          მენიუ (Sidebar).
-        </p>
-        <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
-          <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src={img1} />
+        <div className="space-y-6 text-slate-400 leading-relaxed">
+          <p>
+            რათა დაამატოთ პროდუქტი მოცემულ სიაში, უნდა გადახვიდეთ კონკრეტულ{" "}
+            <Link
+              to="/dashboard/product-catalog"
+              className="text-emerald-400 hover:underline"
+            >
+              მისამართზე
+            </Link>{" "}
+            ან გამოიყენოთ მენიუ (Sidebar).
+          </p>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-slate-800 flex items-center justify-center overflow-hidden">
+              <img
+                src={img1}
+                alt="Catalog sidebar"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-        </div>
-        {/*         */}
-        <p className="mt-5">
-          როდესაც გადახვალთ მისამართზე, გამოჩნდება ქვემოთ ნაჩვენები გვერდი
-        </p>
-        <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
-          <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src={img2} />
+
+          <p>
+            როდესაც გადახვალთ მისამართზე, გამოჩნდება ქვემოთ ნაჩვენები გვერდი:
+          </p>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-slate-800 flex items-center justify-center overflow-hidden">
+              <img
+                src={img2}
+                alt="Catalog page"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-        </div>
-        {/*         */}
-        <p className="mt-5">
-          აქ არის თქვენი დამატებული პროდუქტების ჩამონათვალი. შეგიძლიათ დააჭიროთ
-          '+ Add Product' ღილაკს, რომლითაც შეგეძლებათ ახალი პროდუქტის დამატება.
-        </p>
-        <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
-          <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src={img3} />
+
+          <p>
+            აქ არის თქვენი დამატებული პროდუქტების ჩამონათვალი. შეგიძლიათ
+            დააჭიროთ
+            <span className="text-emerald-400 font-bold ml-1">
+              '+ Add Product'
+            </span>{" "}
+            ღილაკს.
+          </p>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-slate-800 flex items-center justify-center overflow-hidden">
+              <img
+                src={img3}
+                alt="Add product"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-        </div>
-        {/*         */}
-        <p className="mt-5">
-          სამ წერტილზე დაკლიკებით, შეგეძლებათ დააკოპიროთ პროდუქტის SKU,
-          პლატფორმის მიერ მინიჭებული ID, ან წაშალოთ არჩეული პროდუქტი.
-        </p>
-        <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/30 p-2 overflow-hidden shadow-2xl">
-          <div className="aspect-video bg-slate-800 flex items-center justify-center text-slate-600 italic">
-            <img src={img4} />
+
+          <p>
+            სამ წერტილზე დაკლიკებით, შეგეძლებათ დააკოპიროთ SKU ან წაშალოთ
+            პროდუქტი.
+          </p>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-slate-800 flex items-center justify-center overflow-hidden">
+              <img
+                src={img4}
+                alt="Product properties"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       <section id="checkout-logic">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-widest">
+        <div className="flex items-center gap-2 mb-6">
+          <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20">
             Production
           </span>
           <span className="text-slate-600 text-xs">v1.0.0</span>
         </div>
 
-        <h2 className="text-2xl font-bold mb-5">
+        <h2 className="text-2xl md:text-3xl font-black text-white mb-6 tracking-tight">
           ვირტუალური სალაროს შექმენა (Checkout Session)
         </h2>
 
-        <p>
+        <p className="text-slate-400 leading-relaxed mb-8">
           ეს მეთოდი იძლევა საშუალებას შეიქმნას გადახდის სესიის ინიციალიზაცია.
-          უზრუნველყოფს პროდუქტების (ან პროდუქტის) დალუქვა HMAC "ხელმოწერის"
-          გამოყენებით.{" "}
-          <Link to="" className="text-emerald-400 hover:underline font-medium">
-            განიხილეთ ეს საკითხი
-          </Link>
+          უზრუნველყოფს პროდუქტების დალუქვა{" "}
+          <code className="text-emerald-400">HMAC</code> "ხელმოწერის"
+          გამოყენებით.
         </p>
 
         <CodeWindow code={checkoutCode} fileName="routes/checkout.js" />
 
-        <h2 className="text-2xl font-bold mb-5 mt-15">კონკრეტული მეთოდი</h2>
+        <h3 className="text-xl font-bold text-white mt-12 mb-6">
+          კონკრეტული მეთოდი
+        </h3>
         <CodeWindow code={createCheckout} fileName="routes/checkout.js" />
-        <p className="mr-10 mt-10">
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-30 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded">
-                clientSecret
-              </code>
-            </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded mt-1">
-              (Type - String);
-            </code>
-            გასაღები, რომელსაც ეს მეთოდი იძლევა
-          </span>
 
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-18 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded">
-                amount
+        <div className="mt-10 space-y-4">
+          {[
+            {
+              label: "clientSecret",
+              type: "String",
+              desc: "გასაღები, რომელსაც ეს მეთოდი იძლევა",
+            },
+            {
+              label: "amount",
+              type: "Number",
+              desc: "კონკრეტული პროდუქტის ფასი (თეთრებში)",
+            },
+            {
+              label: "cart",
+              type: "Array",
+              desc: "პროდუქტების სია (ერთზეც მორგებულია)",
+            },
+            {
+              label: "cart - id",
+              type: "String",
+              desc: "არსებული პროდუქტის ID (Optional)",
+            },
+            {
+              label: "cart - name",
+              type: "String",
+              desc: "მოთხოვნადი, თუ პროდუქტის ID არ არის მითითებული",
+            },
+            {
+              label: "cart - price",
+              type: "Number",
+              desc: "მოთხოვნადი, თუ პროდუქტის ID არ არის მითითებული (თეთრებში)",
+            },
+            {
+              label: "cart - quantity",
+              type: "Number",
+              desc: "საჭირო, პროდუქტის რაოდენობის მაჩვენებელი",
+            },
+          ].map((param, i) => (
+            <div
+              key={i}
+              className="flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800"
+            >
+              <div className="flex items-center gap-2 shrink-0 min-w-[140px]">
+                <code className="text-emerald-400 text-sm font-bold">
+                  {param.label}
+                </code>
+              </div>
+              <div className="hidden md:block text-slate-600">-</div>
+              <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+                ({param.type})
               </code>
+              <p className="text-sm text-slate-400">{param.desc}</p>
             </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded mt-1">
-              (Type - Number);
-            </code>
-            კონკრეტული პროდუქტის ფასი (თეთრებში)
-          </span>
-
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-18 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded">
-                cart
-              </code>
-            </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-              (Type - Array);
-            </code>
-            პროდუქტების სია (ერთზეც მორგებულია, მთავარია იყოს მოთავსებული სიაში)
-          </span>
-
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-25 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded">
-                cart - id
-              </code>
-            </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-              (Type - String);
-            </code>
-            არსებული პროდუქტის ID (Optional)
-          </span>
-
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-30 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
-                cart - name
-              </code>
-            </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-              (Type - String);
-            </code>
-            <p className="w-100">
-              მოთხოვნადი, თუ პროდუქტის ID არ არის მითითებული
-            </p>
-          </span>
-
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-35 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
-                cart - price
-              </code>
-            </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-              (Type - Number);
-            </code>
-            <p className="w-100">
-              მოთხოვნადი, თუ პროდუქტის ID არ არის მითითებული (თეთრებში)
-            </p>
-          </span>
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-35 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-50">
-                cart - quantity
-              </code>
-            </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-40">
-              (Type - Number);
-            </code>
-            <p className="w-80">საჭირო, პროდუქტის რაოდენობის მაჩვენებელი</p>
-          </span>
-        </p>
-
-        <h2 className="text-2xl font-bold mb-5 mt-15"> getCheckoutUrl() </h2>
-        <p>
-          თქვენი{" "}
-          <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded">
-            clientSecret
-          </code>
-          -ის გამოყენებით აბრუნებს სალაროს მისამართს
-        </p>
-        <CodeWindow code={getCheckoutUrl} fileName="routes/checkout.js" />
-        <p className="mr-10 mt-10">
-          <span className="mb-5 flex items-center gap-3">
-            <div className="w-30 bg-slate-900 p-1 rounded-md">
-              <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded">
-                clientSecret
-              </code>
-            </div>
-            -{" "}
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded mt-1">
-              (Type - String);
-            </code>
-            გასაღები, რომელსაც ეს მეთოდი იძლევა
-          </span>
-        </p>
+          ))}
+        </div>
       </section>
 
-      <section id="methods" className="mt-10">
-        <div className="flex items-center gap-2 mb-4">
+      <section id="methods">
+        <div className="flex items-center gap-2 mb-6">
           <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-widest">
             Production
           </span>
-          <span className="text-slate-600 text-xs">v1.0.0</span>
         </div>
 
-        <h2 className="text-2xl font-bold">
-          პროდუქტების სინქრონიზაცია - syncCatalog()
+        <h2 className="text-2xl md:text-3xl font-black text-white mb-6 tracking-tight">
+          პროდუქტების სინქრონიზაცია -{" "}
+          <code className="text-emerald-400">syncCatalog()</code>
         </h2>
-        <p className="mt-5">
+
+        <p className="text-slate-400 leading-relaxed mb-8">
           ეს ფუნქცია იდეალურია, თუ თქვენი პლატფორმა მოიცავს პროდუქტების დიდ
-          ბაზას და რაოდენობას, ეს მეთოდი პრაქტიკულია. გიწევთ ერთადერთ პარამეტრად
-          გადააწოდოთ ყველა პროდუქტის სია (MongoDB-დან წამოღებული JSON-ად
-          გარდაქმნილი ან პირდაპირ JSON სია);
+          ბაზას. გადააწოდეთ ყველა პროდუქტის სია JSON ფორმატში.
         </p>
+
         <CodeWindow code={syncCatalog} fileName="file.js" />
 
-        <span className="my-5 flex items-center gap-3">
-          <div className="w-30 bg-slate-900 p-1 rounded-md">
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
-              products
-            </code>
+        <div className="mt-8 space-y-3">
+          <div className="p-4 rounded-xl bg-slate-900/30 border border-slate-800 text-sm text-slate-400">
+            გადააწოდეთ პროდუქტების მასივი, სადაც თითოეული ობიექტი შეიცავს:
+            <code className="text-emerald-400 ml-1">id</code>,
+            <code className="text-emerald-400 ml-1">name</code>,
+            <code className="text-emerald-400 ml-1">price</code>.
           </div>
-          -{" "}
-          <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-            (Type - Array);
-          </code>
-          <p className="w-100">პროდუქტის დოკუმეტების სია ან კოლეცია</p>
-        </span>
-
-        <span className="my-5 flex items-center gap-3">
-          <div className="w-35 bg-slate-900 p-1 rounded-md">
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
-              products - id
-            </code>
-          </div>
-          -{" "}
-          <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-            (Type - String);
-          </code>
-          <p className="w-100">SKU ან პროდუქტის ID</p>
-        </span>
-
-        <span className="my-5 flex items-center gap-3">
-          <div className="w-40 bg-slate-900 p-1 rounded-md">
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
-              products - name
-            </code>
-          </div>
-          -{" "}
-          <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-            (Type - String);
-          </code>
-          <p className="w-100">პროდუქტის სახელი</p>
-        </span>
-
-        <span className="my-5 flex items-center gap-3">
-          <div className="w-45 bg-slate-900 p-1 rounded-md">
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
-              products - price
-            </code>
-          </div>
-          -{" "}
-          <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-            (Type - Number);
-          </code>
-          <p className="w-100">პროდუქტის ფასი (თეთრებში)</p>
-        </span>
-
-        <span className="my-5 flex items-center gap-3">
-          <div className="w-65 bg-slate-900 p-1 rounded-md">
-            <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
-              products - description
-            </code>
-          </div>
-          -{" "}
-          <code className="text-emerald-300 bg-emerald-500/5 px-2 rounded mt-1 w-50">
-            (Type - Number);
-          </code>
-          <p className="w-100">პროდუქტის დახასიათება (არ არის მოთხოვნადი)</p>
-        </span>
+        </div>
       </section>
 
-      <section id="old">
+      <section
+        id="old"
+        className="p-6 rounded-2xl border border-rose-500/20 bg-rose-500/5"
+      >
         <div className="flex items-center gap-2 mb-4">
           <span className="px-2 py-1 rounded bg-rose-500/10 text-rose-500 text-[10px] font-bold uppercase tracking-widest">
             Deprecated
           </span>
         </div>
 
-        <h2 className="mt-10 font-bold text-2xl text-rose-200 mb-5">
+        <h2 className="text-xl md:text-2xl font-bold text-rose-200 mb-4">
           createIntent(config)
         </h2>
-        <p>
-          არ არის სასურველი გამოყენებისთვის, მიმართეთ უფრო უსაფრთხო და
-          განახლებულ ალტერნატივას:{" "}
-          <code className="text-emerald-300 bg-emerald-500/5 px-1 rounded w-5">
+
+        <p className="text-sm text-slate-400 mb-6">
+          არ არის სასურველი გამოყენებისთვის. მიმართეთ უსაფრთხო ალტერნატივას:
+          <code className="block mt-2 text-emerald-400 bg-slate-950 p-2 rounded">
             await soteria.createCheckout(cart);
           </code>
         </p>
-        <p className="mt-5">
-          აგზავნის პროდუქტებს პირდაპირ მონაცემის ბაზაში. არ იყენებს არანაირ
-          უსაფრთხოებას და აქიდან გამომდინარე ქმნის გამონაკლის შემთხვევას სადაც
-          შესაძლებელია პროდუქტის მონაცემების შეცვლა. არ იყენებს არანაირ
-          ვალიდაციას
-        </p>
+
         <CodeWindow code={deprecated2} fileName="file.js" />
       </section>
 
-      <section id="delete">
-        <h2 className="text-2xl font-bold">წაშლა და განახლება</h2>
+      <section id="delete" className="pt-10 border-t border-slate-800">
+        <h2 className="text-2xl font-bold text-white">წაშლა და განახლება</h2>
+        <p className="text-slate-500 mt-2 italic">
+          Coming soon / მალე დაემატება...
+        </p>
       </section>
     </div>
   );
