@@ -21,7 +21,7 @@ const createSendToken = (user: any, res: Response) => {
   const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "prod",
-    sameSite: process.env.NODE_ENV === "prod",
+    sameSite: "none",
     maxAge: 24 * 60 * 60 * 1000,
   };
 
