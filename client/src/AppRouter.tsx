@@ -31,7 +31,7 @@ export const AppRouter = createBrowserRouter([
         Component: CheckoutPage,
       },
       {
-        path: "api",
+        path: "/api",
         Component: API,
       },
       {
