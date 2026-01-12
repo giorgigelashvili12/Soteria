@@ -1,0 +1,9 @@
+node_modules
+
+src/config/prisma.config.ts
+
+/generated/prisma
+
+/generated/prisma
+
+.env
