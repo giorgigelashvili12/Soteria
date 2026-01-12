@@ -112,12 +112,12 @@ export const signup = async (req: Request, res: Response) => {
           <p>Hi ${legalName},</p>
           <p>Please click the button below to verify your email. This link will expire shortly.</p>
 
-          <a href="http://localhost:5173/verify-email?email=${encodeURIComponent(email)}&token=${emailToken}"
+          <a href="https://soteria-client.onrender.com/verify-email?email=${encodeURIComponent(email)}&token=${emailToken}"
              style="background: #000; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">
              Verify My Email
           </a>
 
-          <a href="http://localhost:5173/verify-pin?email=${encodeURIComponent(email)}">
+          <a href="https://soteria-client.onrender.com/verify-pin?email=${encodeURIComponent(email)}">
             <p style="margin-top: 20px; font-size: 12px; color: #666;">
               Or use your verification code: <strong>${emailToken}</strong>
             </p>

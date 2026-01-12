@@ -69,7 +69,7 @@ export const invite = async (req: Request, res: Response) => {
 
     const inviterName = inviter.legalName;
     const spaceName = workspace.name;
-    const inviteUrl = `http://localhost:5173/dashboard/accept-invite/${token}`;
+    const inviteUrl = `https://soteria-client.onrender.com/dashboard/accept-invite/${token}`;
     const tag = role.charAt(0).toUpperCase() + role.slice(1);
 
     await transactionalApi.sendTransacEmail({
