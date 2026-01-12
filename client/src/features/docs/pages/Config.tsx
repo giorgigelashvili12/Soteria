@@ -25,13 +25,13 @@ export default function Config() {
         </p>
 
         <div className="mb-10">
-          <CodeWindow code={installCode} fileName="bash" />
+          <CodeWindow code={installCode} />
         </div>
 
         <p className="text-slate-400 mb-4">
           დააიმპორტეთ მოდული თქვენს პროექტში
         </p>
-        <CodeWindow code={importCodeJS} fileName="index.js / .ts" />
+        <CodeWindow code={importCodeJS} />
       </section>
 
       <section id="setup">
@@ -56,7 +56,7 @@ export default function Config() {
         </p>
 
         <div className="mb-10">
-          <CodeWindow code={configCode} fileName="index.js / index.ts" />
+          <CodeWindow code={configCode} />
         </div>
 
         <div className="space-y-6 mb-10">
@@ -85,7 +85,7 @@ export default function Config() {
           </div>
         </div>
 
-        <CodeWindow code={config1} fileName="file.js" />
+        <CodeWindow code={config1} />
       </section>
     </div>
   );

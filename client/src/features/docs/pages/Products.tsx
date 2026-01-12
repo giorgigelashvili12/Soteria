@@ -118,12 +118,12 @@ export default function Products() {
           გამოყენებით.
         </p>
 
-        <CodeWindow code={checkoutCode} fileName="routes/checkout.js" />
+        <CodeWindow code={checkoutCode} />
 
         <h3 className="text-xl font-bold text-white mt-12 mb-6">
           კონკრეტული მეთოდი
         </h3>
-        <CodeWindow code={createCheckout} fileName="routes/checkout.js" />
+        <CodeWindow code={createCheckout} />
 
         <div className="mt-10 space-y-4">
           {[
@@ -199,7 +199,7 @@ export default function Products() {
           ბაზას. გადააწოდეთ ყველა პროდუქტის სია JSON ფორმატში.
         </p>
 
-        <CodeWindow code={syncCatalog} fileName="file.js" />
+        <CodeWindow code={syncCatalog} />
 
         <div className="mt-8 space-y-3">
           <div className="p-4 rounded-xl bg-slate-900/30 border border-slate-800 text-sm text-slate-400">
@@ -232,7 +232,7 @@ export default function Products() {
           </code>
         </p>
 
-        <CodeWindow code={deprecated2} fileName="file.js" />
+        <CodeWindow code={deprecated2} />
       </section>
 
       <section id="delete" className="pt-10 border-t border-slate-800">

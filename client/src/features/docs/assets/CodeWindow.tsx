@@ -1,12 +1,6 @@
 import { useState } from "react";
 
-const CodeWindow = ({
-  code,
-  fileName = "server.js",
-}: {
-  code: string;
-  fileName?: string;
-}) => {
+const CodeWindow = ({ code }: { code: string }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -37,9 +31,6 @@ const CodeWindow = ({
                 >
                   <path d="M12 2L4 5v11l8 3 8-3V5l-8-3zm0 14.5L7 14.7V6.3l5-1.8 5 1.8v8.4l-5 1.8z" />
                 </svg>
-              </span>
-              <span className="text-[10px] md:text-xs text-slate-300 font-mono tracking-tight truncate max-w-[120px] md:max-w-none">
-                {fileName}
               </span>
             </div>
           </div>

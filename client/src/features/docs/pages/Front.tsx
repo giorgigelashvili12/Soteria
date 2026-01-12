@@ -23,7 +23,7 @@ export default function Front() {
         </div>
 
         <div className="mt-8 mb-16">
-          <CodeWindow code={frontModule} fileName="file.jsx / file.tsx" />
+          <CodeWindow code={frontModule} />
         </div>
 
         <h2 className="text-xl md:text-2xl font-bold text-white mt-12 mb-5 leading-snug">
@@ -43,7 +43,7 @@ export default function Front() {
         </p>
 
         <div className="mb-16">
-          <CodeWindow code={frontSnippet} fileName="file.jsx / file.tsx" />
+          <CodeWindow code={frontSnippet} />
         </div>
 
         <h2 className="text-xl md:text-2xl font-bold text-white mt-12 mb-5">
@@ -51,7 +51,7 @@ export default function Front() {
         </h2>
 
         <div className="mb-12">
-          <CodeWindow code={showcase1} fileName="file.jsx / file.tsx" />
+          <CodeWindow code={showcase1} />
         </div>
 
         <div className="mt-12 rounded-2xl md:rounded-3xl border border-slate-800 bg-slate-900/30 p-1 md:p-2 overflow-hidden shadow-2xl">
