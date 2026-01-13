@@ -8,21 +8,31 @@ import crypto from "crypto";
 
 export const get = async (req: Request, res: Response) => {
   try {
-    //@ts-ignore
-    const id = req.merchant.id;
+    const mer_id = (req as any).merchant.id;
 
-    if (!id) {
-      return res.status(400).json({ msg: "missing id" });
+    const { id, sku } = req.query;
+
+    const filter: any = { merchant_id: mer_id };
+
+    if (id || sku) {
+      filter.$or = [];
+      if (id) filter.$or.push({ id: id });
+      if (sku) filter.$or.push({ sku: sku });
     }
 
-    const product = await Product.findOne({ id });
+    const product = await Product.findOne(filter);
+
     if (!product) {
-      return res.status(404).json({ msg: "not found" });
+      return res.status(404).json({
+        msg: "No product found matching those criteria",
+        criteria: filter,
+      });
     }
 
-    return res.status(200).json({ msg: "found successfully", product });
+    return res.status(200).json({ msg: "Found successfully", product });
   } catch (e) {
-    return res.status(500).json({ msg: "internal server error", e });
+    console.error("GET Error:", e);
+    return res.status(500).json({ msg: "Internal server error" });
   }
 };
 
@@ -89,21 +99,32 @@ export const create = async (req: Request, res: Response) => {
 
 export const edit = async (req: Request, res: Response) => {
   try {
-    const { id, name, price, currency, sku, description, image_url } = req.body;
-    // @ts-ignore
-    const mer_id = req.merchant.id;
+    const { id, name, price, currency, sku, description, image_url, passkey } =
+      req.body;
+
+    const merchant = await Merchant.findOne({ passkey });
+
+    if (!merchant) {
+      console.log(401);
+      return res.status(401).json({ msg: "Unauthorized: Invalid Passkey" });
+    }
+
+    const mer_id = merchant.id;
 
     if (!name || !price || !sku || !id) {
+      console.log(400);
       return res
         .status(400)
         .json({ msg: "invalid required fields: id, name, price or sku" });
     }
 
     if (price <= 0 || typeof price !== "number") {
+      console.log(400, "price");
       return res.status(400).json({ msg: "invalid parameter: price" });
     }
 
     if (!(currency in RATES)) {
+      console.log(400, "cur");
       return res.status(400).json({ msg: "currency not supported" });
     }
 
@@ -114,29 +135,30 @@ export const edit = async (req: Request, res: Response) => {
     });
 
     if (skuConflict) {
+      console.log(409);
       return res.status(409).json({ msg: "sku used by another product" });
     }
 
     const edited = await Product.findOneAndUpdate(
       { id, merchant_id: mer_id },
-      {
-        name,
-        price,
-        currency,
-        sku,
-        description,
-        image_url,
-      },
+      { name, price, currency, sku, description, image_url },
       { new: true, runValidators: true },
     );
 
     if (!edited) {
+      console.log(404);
       return res.status(404).json({ msg: "product not found" });
     }
 
     return res.status(200).json({ msg: "success", product: edited });
-  } catch (e) {
-    return res.status(500).json({ msg: "internal server error", data: e });
+  } catch (e: any) {
+    console.error(e);
+    return res.status(500).json({
+      msg: "internal server error",
+      error: e.message,
+      stack: e.stack,
+      details: e,
+    });
   }
 };
 

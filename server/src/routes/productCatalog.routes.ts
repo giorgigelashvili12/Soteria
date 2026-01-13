@@ -8,16 +8,16 @@ import {
   createCheckout,
 } from "../controllers/productCatalog.controller.js";
 import { Router } from "express";
-import { protect } from "../middleware/protect.middleware.js";
+import { verifyPasskey } from "../middleware/passkey.middleware.js";
 
 const router = Router();
 
-router.get("/all", protect, getAll);
-router.get("/:id", protect, get);
-router.post("/", protect, create);
-router.patch("/", protect, edit);
-router.delete("/", protect, deleteProduct);
-router.post("/sync", sync);
+router.get("/all", getAll);
+router.get("/get", verifyPasskey, get);
+router.post("/", create);
+router.post("/edit", verifyPasskey, edit);
+router.post("/delete", verifyPasskey, deleteProduct);
+router.post("/sync", verifyPasskey, sync);
 router.post("/create-checkout", createCheckout);
 
 export default router;
