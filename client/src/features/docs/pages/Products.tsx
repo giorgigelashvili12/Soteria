@@ -6,6 +6,14 @@ import {
   //getCheckoutUrl,
   syncCatalog,
   deprecated2,
+  deleteProduct,
+  updateProduct,
+  getParamEmpty,
+  getParamGiven,
+  deleteUsage,
+  updateUsage,
+  getParamEmptyUsage,
+  getParamGivenUsage,
 } from "../assets/codes";
 import img1 from "../../../assets/images/catalog.png";
 import img2 from "../../../assets/images/dedicated-page.png";
@@ -184,9 +192,10 @@ export default function Products() {
 
       <section id="methods">
         <div className="flex items-center gap-2 mb-6">
-          <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-widest">
+          <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20">
             Production
           </span>
+          <span className="text-slate-600 text-xs">v1.0.0</span>
         </div>
 
         <h2 className="text-2xl md:text-3xl font-black text-white mb-6 tracking-tight">
@@ -208,6 +217,165 @@ export default function Products() {
             <code className="text-emerald-400 ml-1">name</code>,
             <code className="text-emerald-400 ml-1">price</code>.
           </div>
+        </div>
+      </section>
+
+      <section id="delete" className="pt-10 border-t border-slate-800">
+        <div className="flex items-center gap-2 mb-6">
+          <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20">
+            Production
+          </span>
+          <span className="text-slate-600 text-xs">v1.2.0</span>
+        </div>
+        <h2 className="text-3xl font-bold text-white">დამატებითი ფუნქციები</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-white mt-5">
+            1. პროდუქტის წაშლა
+          </h2>
+          <p className="text-slate-500 mt-2">
+            იძლევა შესაძლებლობას წაიშალოს ერთი კონკრეტული პროდუქტი მისი
+            იდენთიფიქატორის (ID) გამოყენებით.
+          </p>
+          <CodeWindow code={deleteProduct} />
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold">
+                productId
+              </code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (String)
+            </code>
+            <p className="text-sm text-slate-400">არსებული პროდუქტის ID</p>
+          </div>
+
+          <h2 className="text-xl font-bold mt-10">გამოყენება</h2>
+          <CodeWindow code={deleteUsage} />
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold text-white mt-20">
+            2. პროდუქტის ობიექტის განახლება
+          </h2>
+          <p className="text-slate-500 mt-2">
+            შესაძლებელია შეიცვალოს არსებული პროდუქტის მონაცემი ან მონაცემები
+            (საჭიროა ან ID, ან SKU, უმჯობესია ID გამოიყენოთ)
+          </p>
+          <CodeWindow code={updateProduct} />
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold">id</code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (String)
+            </code>
+            <p className="text-sm text-slate-400">არსებული პროდუქტის ID</p>
+          </div>
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold">name</code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (String)
+            </code>
+            <p className="text-sm text-slate-400">არსებული პროდუქტის სახელი</p>
+          </div>
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold">price</code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (Number)
+            </code>
+            <p className="text-sm text-slate-400">არსებული პროდუქტის ფასი</p>
+          </div>
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold">
+                currency
+              </code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (String)
+            </code>
+            <p className="text-sm text-slate-400">
+              არსებული პროდუქტის მითითებული ვალუტა
+            </p>
+          </div>
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold">sku</code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (String)
+            </code>
+            <p className="text-sm text-slate-400">არსებული პროდუქტის SKU</p>
+          </div>
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold">
+                description
+              </code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (String)
+            </code>
+            <p className="text-sm text-slate-400">არსებული პროდუქტის აღწერა</p>
+          </div>
+
+          <h2 className="text-xl font-bold mt-10">გამოყენება</h2>
+          <CodeWindow code={updateUsage} />
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold text-white mt-20">
+            3. ერთი პროდუქტის წამოღება
+          </h2>
+          <p className="text-slate-500 mt-2">
+            იძლევა შესაძლებლობას წამოიღოთ ერთი კონკრეტული პროდუქტი ID-ის
+            გამოყენებით
+          </p>
+          <CodeWindow code={getParamEmpty} />
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold italic">
+                არაფერი
+              </code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter"></code>
+            <p className="text-sm text-slate-400">
+              თუ არ არის არანაირი არგუმენტი გადაწოდებული, ერორის ნაცვლად მოაქვს
+              პირველი პროდუქტი კოლექციაში
+            </p>
+          </div>
+
+          <p className="mt-10">აქ კი ნებისმიერი რომელიც გინდათ</p>
+          <CodeWindow code={getParamGiven} />
+          <div className=" mt-5 flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
+            <div className="flex items-center gap-2 shrink-0 min-w-35">
+              <code className="text-emerald-400 text-sm font-bold italic">
+                id
+              </code>
+            </div>
+            <div className="hidden md:block text-slate-600">-</div>
+            <code className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">
+              (String)
+            </code>
+            <p className="text-sm text-slate-400">არსებული პროდუქტის ID</p>
+          </div>
+
+          <h2 className="text-xl font-bold mt-10">გამოყენება (უარგუმენტო)</h2>
+          <CodeWindow code={getParamEmptyUsage} />
+          <h2 className="text-xl font-bold mt-10">გამოყენება (არგუმენტით)</h2>
+          <CodeWindow code={getParamGivenUsage} />
         </div>
       </section>
 
@@ -233,13 +401,6 @@ export default function Products() {
         </p>
 
         <CodeWindow code={deprecated2} />
-      </section>
-
-      <section id="delete" className="pt-10 border-t border-slate-800">
-        <h2 className="text-2xl font-bold text-white">წაშლა და განახლება</h2>
-        <p className="text-slate-500 mt-2 italic">
-          Coming soon / მალე დაემატება...
-        </p>
       </section>
     </div>
   );

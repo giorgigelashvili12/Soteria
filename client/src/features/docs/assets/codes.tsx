@@ -83,7 +83,7 @@ const handlePayment = async () => {
     }
   };`;
 
-export const frontSnippet = `await soteria.createCheckout(cart);`;
+export const frontSnippet = `await soteria.redirectToCheckout(clientSecret);`;
 
 export const showcase1 = `return (
 ...
@@ -92,3 +92,61 @@ export const showcase1 = `return (
   </button>
 ...
 )`;
+
+export const deleteProduct = `await soteria.deleteProduct(productId);`;
+
+export const updateProduct = `await soteria.editProduct({
+  id: productId,
+  name: "Product Name",
+  price: 49.99,
+  currency: "GEL",
+  sku: "PRODUCT-01",
+  description: "a cool description for a cool product"
+});`;
+
+export const getParamEmpty = `await soteria.getProduct()`;
+export const getParamGiven = `await soteria.getProduct({ id: productId })`;
+
+export const deleteUsage = `app.delete('/delete', async (req, res) => {
+    try {
+        const response = await soteria.deleteProduct("prod_...");
+        return res.json({ status: "success", response });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});`;
+
+export const updateUsage = `app.patch('/product/edit', async (req, res) => {
+    try {
+        const result = await soteria.editProduct({
+            id: "prod_...",
+            name: "name",
+            price: 49.99,
+            currency: "GEL",
+            sku: "NAME-01",
+            description: "description"
+        });
+
+        return res.json({ msg: "Edit successful", result });
+    } catch (error) {
+        return res.status(500).json({err: error});
+    }
+});`;
+
+export const getParamEmptyUsage = `app.get('/', async (req, res) => {
+    try {
+        const data = await soteria.getProduct({ id: "prod_..." });
+        return res.json(data);
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+});`;
+
+export const getParamGivenUsage = `app.get('/', async (req, res) => {
+    try {
+        const data = await soteria.getProduct();
+        return res.json(data);
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+});`;

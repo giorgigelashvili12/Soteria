@@ -20,12 +20,17 @@ import Workspace from "./features/settings/pages/Workspace";
 import CheckoutPage from "./features/shared/Checkout";
 import ProductCatalog from "./features/product-catalog/ProductCatalog";
 import API from "./features/docs/API";
+import HomePage from "./features/HomePage";
 
 export const AppRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <Home />,
     children: [
+      {
+        path: "/",
+        Component: HomePage,
+      },
       {
         path: "/checkout/:clientSecret",
         Component: CheckoutPage,

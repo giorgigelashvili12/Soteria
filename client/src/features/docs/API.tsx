@@ -32,9 +32,9 @@ const API = () => {
       subItems: [
         { id: "test-mode", label: "პლატფორმაზე პროდუქტის დამატება" },
         { id: "checkout-logic", label: "ვირტუალური სალაროს სესიის შექმნა" },
-        { id: "methods", label: "დამატებითი მეთოდები" },
+        { id: "methods", label: "დამატებითი მეთოდები v1.0" },
+        { id: "delete", label: "დამატებითი მეთოდები v1.2" },
         { id: "old", label: "ძველი მეთოდები" },
-        { id: "delete", label: "წაშლა და განახლება" },
       ],
     },
     { id: "react", label: "React ინტეგრაცია" },
