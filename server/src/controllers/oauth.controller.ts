@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import axios from "axios";
 import Merchant from "../models/Merchant.model.js";
+import type { MerchantI } from "../interfaces/Merchant.interface.js";
 import Workspace from "../models/Workspace.model.js";
 import Membership from "../models/Membership.model.js";
 import crypto from "crypto";
@@ -79,7 +80,7 @@ export const googleCallback = async (req: Request, res: Response) => {
   if (existingMerchant) {
     merchant = existingMerchant;
   } else {
-    const newMerchant = await Merchant.create({
+    const merchant: MerchantI = await Merchant.create({
       id: `mch_${crypto.randomBytes(6).toString("hex")}`,
       legalName: profile.name,
       email: profile.email,
@@ -103,24 +104,22 @@ export const googleCallback = async (req: Request, res: Response) => {
       emailVerified: true,
     } as any);
 
-    merchant = merchant!;
-
-    const workspace = new Workspace({
+    const workspace = await Workspace.create({
       name: `${merchant.legalName}'s Workspace`,
-      owner_id: merchant._id,
+      //@ts-ignore
+      owner_id: merchant._id.toString(),
       status: "test",
     });
     await workspace.save();
 
     const membership = new Membership({
       workspace_id: workspace._id,
+      //@ts-ignore
       merchant_id: merchant._id,
       role: "owner",
       status: "active",
     });
     await membership.save();
-
-    merchant = newMerchant;
   }
 
   createSendToken(merchant, res);
