@@ -4,6 +4,7 @@ import { Spinner } from "@/components/ui/spinner";
 
 import { Button } from "@/components/ui/button";
 import { Error } from "../messages/Error";
+import { Success } from "../messages/Success";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -75,7 +76,7 @@ export default function Login() {
         alert("signup success");
         localStorage.setItem("user", JSON.stringify(data.data.id));
         localStorage.setItem("email", JSON.stringify(data.data.email));
-        nav("/");
+        nav("/dashboard");
       } else {
         Error({
           title: "Error signing up",
@@ -87,7 +88,7 @@ export default function Login() {
         });
       }
     } catch (e: unknown) {
-      alert("error loggin in");
+      Success("Logged In Successfully");
       console.error(e);
     } finally {
       setLoading(false);
@@ -187,7 +188,7 @@ export default function Login() {
             <Button className="w-100 py-5 mt-3 bg-white text-stone-800 border border-stone-400 hover:text-white">
               <Link
                 className="flex gap-3 items-center  w-100 py-2 justify-center rounded-md"
-                to="http://localhost:33031/api/v1/oauth/google"
+                to="https://soteria-q27e.onrender.com/api/v1/oauth/google"
               >
                 <img className="w-5" src="src/assets/images/google-logo.webp" />
 

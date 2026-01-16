@@ -66,7 +66,7 @@ export default function Signup() {
     const check = async () => {
       try {
         const res = await fetch(
-          `https://soteria-back.vercel.app/api/v1/auth/profile`,
+          `https://soteria-q27e.onrender.com/api/v1/auth/profile`,
           {
             method: "GET",
             credentials: "include",
@@ -123,7 +123,7 @@ export default function Signup() {
         Success("Account created successfully!");
         localStorage.setItem("user", JSON.stringify(data.data.id));
         localStorage.setItem("email", JSON.stringify(data.data.email));
-        setInterval(() => nav("/"), 1000);
+        setInterval(() => nav("/dashboard"), 1000);
       } else {
         Error({
           title: "Error signing up",
@@ -361,7 +361,7 @@ export default function Signup() {
             <Button className="w-100 py-5 mt-3 bg-white text-stone-800 border border-stone-400 hover:text-white">
               <Link
                 className="flex gap-3 items-center  w-100 py-2 justify-center rounded-md"
-                to="http://localhost:33031/api/v1/oauth/google"
+                to="https://soteria-q27e.onrender.com/api/v1/oauth/google"
               >
                 <img className="w-5" src="src/assets/images/google-logo.webp" />
 

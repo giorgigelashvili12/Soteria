@@ -21,7 +21,6 @@ export default function GrossVolume() {
         const res = await axios.get(
           "https://soteria-q27e.onrender.com/api/v1/metrics/gross-volume",
         );
-        console.log(res.data);
         setData(res.data);
       } catch (e) {
         console.error(e);

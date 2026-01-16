@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { ArrowRight, Terminal } from "lucide-react";
 import Header from "./home/Header";
 
 export default function HomePage() {
-  const nav = useNavigate();
   return (
     <div>
       <Header />

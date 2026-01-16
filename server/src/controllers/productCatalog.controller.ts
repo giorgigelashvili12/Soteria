@@ -46,6 +46,7 @@ export const getAll = async (req: Request, res: Response) => {
     }).lean();
     return res.status(200).json(products);
   } catch (e) {
+    console.log(e);
     return res.status(500).json({ msg: "internal server error", e });
   }
 };

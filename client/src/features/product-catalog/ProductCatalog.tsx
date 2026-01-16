@@ -85,7 +85,7 @@ export default function ProductCatalog() {
             description: (
               <ul className="list-disc list-inside text-sm">
                 {/*@ts-expect-error ki arsebibs. */}
-                <li>${res.msg || "rejected request"}</li>
+                <li>{(res.msg, "rejected request")}</li>
               </ul>
             ),
           });
