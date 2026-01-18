@@ -139,8 +139,8 @@ export const signup = async (req: Request, res: Response) => {
     );
     res.cookie("hs", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
       path: "/",
       maxAge: 1000 * 60 * 60 * 24,
     });
@@ -182,8 +182,8 @@ export const login = async (req: Request, res: Response) => {
     );
     res.cookie("hs", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
       path: "/",
       maxAge: 1000 * 60 * 60 * 24,
     });

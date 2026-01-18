@@ -23,12 +23,10 @@ const createSendToken = (user: any, res: Response) => {
   const isProd = process.env.NODE_ENV === "prod";
   const cookieOptions: CookieOptions = {
     httpOnly: true,
-    // true on HTTPS, false on localhost (HTTP)
-    secure: isProd,
-    // "lax" is best for OAuth redirects.
-    // "none" + secure: true is required if frontend and backend are on different domains.
-    sameSite: isProd ? "none" : "lax",
-    maxAge: 24 * 60 * 60 * 1000,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+    maxAge: 1000 * 60 * 60 * 24,
   };
 
   res.cookie("hs", token, cookieOptions);
