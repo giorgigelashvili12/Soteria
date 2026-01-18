@@ -6,7 +6,8 @@ export const verifyPasskey = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const passkey = req.body?.passkey || req.query?.passkey;
+  const passkey =
+    req.headers["x-passkey"] || req.query.passkey || req.body?.passkey;
 
   if (!passkey) {
     return res.status(401).json({ msg: "Passkey required" });

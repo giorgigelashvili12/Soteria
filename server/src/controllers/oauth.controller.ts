@@ -14,20 +14,13 @@ dotenv.config();
 const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 
 const createSendToken = (user: any, res: Response) => {
-  if (!user || !user._id) {
-    console.error("❌ createSendToken received an empty user object!");
-    return res
-      .status(500)
-      .json({ msg: "Internal Server Error: User session failed" });
-  }
-
   const token = jwt.sign(
     { id: user._id, email: user.email },
     process.env.JWT!,
     { expiresIn: "1d" },
   );
 
-  const isProd = process.env.NODE_ENV === "production";
+  const isProd = process.env.NODE_ENV === "prod";
   const cookieOptions: CookieOptions = {
     httpOnly: true,
     // true on HTTPS, false on localhost (HTTP)

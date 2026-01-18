@@ -38,16 +38,23 @@ export const get = async (req: Request, res: Response) => {
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    //@ts-ignore
-    const id = req.merchant.id;
-
-    const products = await Product.find({
-      merchant_id: id,
-    }).lean();
+    // @ts-ignore
+    const merchantId = req.merchant._id;
+    const products = await Product.find({ merchant_id: merchantId }).lean();
     return res.status(200).json(products);
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({ msg: "internal server error", e });
+    return res.status(500).json({ msg: "Dashboard fetch failed" });
+  }
+};
+
+export const sdkAll = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const merchantId = req.merchant.id;
+    const products = await Product.find({ merchant_id: merchantId }).lean();
+    return res.status(200).json(products);
+  } catch (e) {
+    return res.status(500).json({ msg: "API fetch failed" });
   }
 };
 

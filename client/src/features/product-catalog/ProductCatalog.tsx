@@ -57,7 +57,7 @@ export default function ProductCatalog() {
     const loadProducts = async () => {
       try {
         const res = await fetch(
-          "https://soteria-q27e.onrender.com/api/v1/products/all",
+          "https://soteria-client.onrender.com/api/v1/products/dashboard-list",
           {
             credentials: "include",
           },

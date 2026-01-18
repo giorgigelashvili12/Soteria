@@ -138,10 +138,11 @@ export const signup = async (req: Request, res: Response) => {
       },
     );
     res.cookie("hs", token, {
-      maxAge: 86400000,
-      sameSite: "none",
       httpOnly: true,
-      secure: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 1000 * 60 * 60 * 24,
     });
 
     res.status(201).json({
@@ -180,10 +181,11 @@ export const login = async (req: Request, res: Response) => {
       },
     );
     res.cookie("hs", token, {
-      maxAge: 86400000,
-      sameSite: "none",
       httpOnly: true,
-      secure: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 1000 * 60 * 60 * 24,
     });
 
     res.status(200).json({
