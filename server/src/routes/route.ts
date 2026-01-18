@@ -7,6 +7,7 @@ import membershipRoutes from "./membership.route.js";
 import invitationRoutes from "./invitation.route.js";
 import intentRoutes from "./intent.route.js";
 import productCatalogRoutes from "./productCatalog.routes.js";
+import financeRoutes from "./finances.route.js";
 import { Router } from "express";
 
 const router = Router();
@@ -20,5 +21,6 @@ router.use("/membership", membershipRoutes);
 router.use("/invitation", invitationRoutes);
 router.use("/payment-intent", intentRoutes);
 router.use("/products", productCatalogRoutes);
+router.use("/balances", financeRoutes);
 
 export default router;

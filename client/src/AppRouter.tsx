@@ -21,6 +21,9 @@ import CheckoutPage from "./features/shared/Checkout";
 import ProductCatalog from "./features/product-catalog/ProductCatalog";
 import API from "./features/docs/API";
 import HomePage from "./features/HomePage";
+import Balances from "./features/balances/Balances";
+import Transactions from "./features/transactions/Transactions";
+import Customers from "./features/customers/Customers";
 
 export const AppRouter = createBrowserRouter([
   {
@@ -62,6 +65,18 @@ export const AppRouter = createBrowserRouter([
           {
             index: true,
             Component: DashHome,
+          },
+          {
+            path: "balances",
+            Component: Balances,
+          },
+          {
+            path: "transactions",
+            Component: Transactions,
+          },
+          {
+            path: "customers",
+            Component: Customers,
           },
           {
             path: "product-catalog",

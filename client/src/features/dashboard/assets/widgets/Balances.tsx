@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Balances() {
   return (
-    <Link to="">
+    <Link to="/dashboard/balances">
       <Button className="bg-white text-stone-600 hover:bg-stone-200 cursor-pointer w-full flex justify-start">
         <Wallet2 className="size-4.5" /> Balances
       </Button>

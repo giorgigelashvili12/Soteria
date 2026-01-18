@@ -10,6 +10,7 @@ import { pincode } from "../utils/pincode.js";
 import geoip from "geoip-lite";
 import Membership from "../models/Membership.model.js";
 import Workspace from "../models/Workspace.model.js";
+import Balance from "../models/Balance.model.js";
 
 dotenv.config();
 
@@ -93,6 +94,15 @@ export const signup = async (req: Request, res: Response) => {
       status: "active",
     });
     await membership.save();
+
+    const balance = new Balance({
+      id: `bal_${crypto.randomBytes(6).toString("hex")}`,
+      account_id: merchant.id,
+      available: [],
+      pending: [],
+      reserved: [],
+    });
+    await balance.save();
 
     await transactionalApi.sendTransacEmail({
       sender: {

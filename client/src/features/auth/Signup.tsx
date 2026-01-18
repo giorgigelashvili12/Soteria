@@ -135,7 +135,7 @@ export default function Signup() {
         });
       }
     } catch (e: unknown) {
-      alert("error loggin in");
+      Error("Error signing up.");
       console.error(e);
     } finally {
       setLoading(false);

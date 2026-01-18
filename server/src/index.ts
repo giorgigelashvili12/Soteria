@@ -31,11 +31,11 @@ app.use((req, res, next) => {
 app.use("/api/v1", router);
 
 // logging
-app.use((req, res, next) => {
-  console.log(`Cookies in Header: ${req.headers.cookie}`);
-  console.log(`Incoming Request: ${req.method} ${req.url}`);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(`Cookies in Header: ${req.headers.cookie}`);
+//   console.log(`Incoming Request: ${req.method} ${req.url}`);
+//   next();
+// });
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);

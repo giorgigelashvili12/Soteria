@@ -49,7 +49,7 @@ export default function WorkspaceTable() {
               typeof m.workspace_id === "object"
                 ? m.workspace_id?._id
                 : m.workspace_id;
-            return id === workspaceId;
+            return String(id) === String(workspaceId);
           },
         );
 
@@ -98,14 +98,14 @@ export default function WorkspaceTable() {
               <p className="text-stone-500 text-sm">Manage access and roles.</p>
             </div>
 
-            {["owner", "admin"].includes(userRole) && (
+            {
               <Button
+                className="bg-emerald-600"
                 onClick={() => setInviting(true)}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
               >
-                <Plus className="size-4" /> Invite Member
+                Invite Member
               </Button>
-            )}
+            }
           </div>
 
           <div className="rounded-xl border border-stone-200 bg-white shadow-sm overflow-hidden">

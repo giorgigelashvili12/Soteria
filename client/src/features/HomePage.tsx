@@ -75,6 +75,8 @@ export default function HomePage() {
                   "Tailwind CSS",
                   "Node.js",
                   "Lucide",
+                  "TanStack",
+                  "Axios",
                 ].map((tech) => (
                   <span
                     key={tech}

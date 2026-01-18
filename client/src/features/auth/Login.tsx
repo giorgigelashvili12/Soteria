@@ -73,10 +73,10 @@ export default function Login() {
 
       const data = await res.json();
       if (res.ok) {
-        alert("signup success");
+        Success("Signed up successfully!");
         localStorage.setItem("user", JSON.stringify(data.data.id));
         localStorage.setItem("email", JSON.stringify(data.data.email));
-        nav("/dashboard");
+        setInterval(() => nav("/dashboard"), 1000);
       } else {
         Error({
           title: "Error signing up",
@@ -88,7 +88,7 @@ export default function Login() {
         });
       }
     } catch (e: unknown) {
-      Success("Logged In Successfully");
+      Success("Couldn't log in.");
       console.error(e);
     } finally {
       setLoading(false);

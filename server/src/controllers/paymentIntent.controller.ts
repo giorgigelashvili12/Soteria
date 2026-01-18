@@ -1,11 +1,13 @@
 import PaymentIntent from "../models/PaymentIntent.model.js";
 import { RATES } from "../types/rates.type.js";
+import * as PaymentService from "../services/payment.service.js";
 import type { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { executePayment } from "../gateway/processor.js";
 import Merchant from "../models/Merchant.model.js";
 import Product from "../models/Product.model.js";
 
+/* SDK SIDE */
 export const create = async (req: Request, res: Response) => {
   try {
     const { items, passkey, amount_received } = req.body;
@@ -86,6 +88,22 @@ export const confirm = async (req: Request, res: Response) => {
       intent.status = "succeeded";
       intent.amount_received = intent.amount;
       await intent.save();
+
+      await Merchant.findOneAndUpdate(
+        { id: intent.merchant_id },
+        { $inc: { credit: intent.amount } },
+      );
+      await PaymentService.deposit(
+        intent.merchant_id,
+        intent.amount,
+        intent.currency,
+        {
+          brand: "visa",
+          last4: "4242",
+          country: "GE",
+        },
+      );
+
       return res.status(200).json({ status: "succeeded" });
     }
 
