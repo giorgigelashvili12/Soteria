@@ -13,9 +13,18 @@ export const deposit = async (
     country: "GE" | "US";
   },
 ) => {
-  const balance = await Balance.findOne({ account_id: id });
-
-  if (!balance) throw new Error(`Cannot find requested document, Balance`);
+  let balance = await Balance.findOneAndUpdate(
+    { account_id: id },
+    {
+      $setOnInsert: {
+        account_id: id,
+        pending: [],
+        available: [],
+        reserved: [],
+      },
+    },
+    { upsert: true, new: true },
+  );
 
   const wallet = balance.pending.find((p) => p.currency === currency);
 
@@ -34,12 +43,10 @@ export const deposit = async (
     object: "transaction",
     account_id: id,
     status: "completed",
+    amount: amount,
+    currency: currency,
     live: false,
-    card: {
-      brand: card.brand,
-      last4: card.last4,
-      country: card.country,
-    },
+    card: card,
   });
 
   return balance;
