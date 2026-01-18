@@ -97,3 +97,28 @@ export interface IntentDetails {
   merchantLevel: number;
   metadata: object;
 }
+
+interface BalanceEntry {
+  amount: number;
+  currency: string;
+  type?: string;
+}
+
+export interface Transaction {
+  id: string;
+  object: string;
+  amount: number;
+  currency: string;
+  status: string;
+  createdAt: string;
+}
+
+export interface FinanceStats {
+  balance: {
+    available: BalanceEntry[];
+    pending: BalanceEntry[];
+    reserved: BalanceEntry[];
+  };
+  transactions: Transaction[];
+  totalVolume: number;
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Wallet, ArrowUpRight, RefreshCcw, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { FinanceStats } from "../@types";
+import type { FinanceStats, Transaction } from "../@types"; // Ensure Transaction is exported from your types file
 
 export default function Balances() {
   const [stats, setStats] = useState<FinanceStats | null>(null);
@@ -14,9 +14,7 @@ export default function Balances() {
         setLoading(true);
         const res = await axios.get(
           "https://soteria-q27e.onrender.com/api/v1/balances/stats",
-          {
-            withCredentials: true,
-          },
+          { withCredentials: true },
         );
         setStats(res.data);
       } catch (e) {
@@ -42,8 +40,8 @@ export default function Balances() {
   const currency = stats?.balance?.available?.[0]?.currency || "GEL";
 
   return (
-    <div>
-      <div className="p-8 space-y-8 max-w-7xl mx-auto">
+    <div className="p-8 space-y-8 max-w-7xl mx-auto">
+      <div>
         <h1 className="text-3xl font-bold text-stone-900">Balances</h1>
         <p className="text-stone-500">Track your earnings and settlements</p>
       </div>
@@ -113,32 +111,43 @@ export default function Balances() {
               </tr>
             </thead>
             <tbody className="divide-y divide-stone-100">
-              {stats?.transactions?.map((txn: any) => (
-                <tr
-                  key={txn.id}
-                  className="hover:bg-stone-50/50 transition-colors"
-                >
-                  <td className="px-6 py-4 font-mono text-xs">{txn.id}</td>
-                  <td className="px-6 py-4 capitalize">{txn.object}</td>
-                  <td className="px-6 py-4 font-semibold">
-                    {txn.amount} {txn.currency}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
-                        txn.status === "completed"
-                          ? "bg-emerald-100 text-emerald-700"
-                          : "bg-stone-100 text-stone-500"
-                      }`}
-                    >
-                      {txn.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right text-stone-400">
-                    {new Date(txn.createdAt).toLocaleDateString()}
+              {stats?.transactions && stats.transactions.length > 0 ? (
+                stats.transactions.map((txn: Transaction) => (
+                  <tr
+                    key={txn.id}
+                    className="hover:bg-stone-50/50 transition-colors"
+                  >
+                    <td className="px-6 py-4 font-mono text-xs">{txn.id}</td>
+                    <td className="px-6 py-4 capitalize">{txn.object}</td>
+                    <td className="px-6 py-4 font-semibold">
+                      {txn.amount} {txn.currency}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
+                          txn.status === "completed"
+                            ? "bg-emerald-100 text-emerald-700"
+                            : "bg-stone-100 text-stone-500"
+                        }`}
+                      >
+                        {txn.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right text-stone-400">
+                      {new Date(txn.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="px-6 py-10 text-center text-stone-400"
+                  >
+                    No transactions found yet.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
