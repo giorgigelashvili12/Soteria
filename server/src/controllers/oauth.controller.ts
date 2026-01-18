@@ -8,21 +8,33 @@ import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import geoip from "geoip-lite";
+import type { CookieOptions } from "express";
 dotenv.config();
 
 const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 
 const createSendToken = (user: any, res: Response) => {
+  if (!user || !user._id) {
+    console.error("❌ createSendToken received an empty user object!");
+    return res
+      .status(500)
+      .json({ msg: "Internal Server Error: User session failed" });
+  }
+
   const token = jwt.sign(
     { id: user._id, email: user.email },
     process.env.JWT!,
     { expiresIn: "1d" },
   );
 
-  const cookieOptions = {
+  const isProd = process.env.NODE_ENV === "production";
+  const cookieOptions: CookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "prod",
-    sameSite: process.env.NODE_ENV === "prod",
+    // true on HTTPS, false on localhost (HTTP)
+    secure: isProd,
+    // "lax" is best for OAuth redirects.
+    // "none" + secure: true is required if frontend and backend are on different domains.
+    sameSite: isProd ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000,
   };
 
@@ -66,7 +78,6 @@ export const googleCallback = async (req: Request, res: Response) => {
 
   const existingMerchant = await Merchant.findOne({ email: profile.email });
 
-  let merchant;
   const header = req.headers["x-forwarded-for"];
   const remoteAddress = req.socket.remoteAddress;
   const userAgent = req.headers["user-agent"];
@@ -77,10 +88,14 @@ export const googleCallback = async (req: Request, res: Response) => {
   const geo = geoip.lookup(ip);
   const location = geo ? `${geo.city}, ${geo.country}` : "Unknown Location";
 
+  let merchant: any;
+
   if (existingMerchant) {
     merchant = existingMerchant;
   } else {
-    const merchant: MerchantI = await Merchant.create({
+    const pk = `pk_${crypto.randomBytes(12).toString("hex")}`;
+    const sk = `sk_${crypto.randomBytes(24).toString("hex")}`;
+    merchant = await Merchant.create({
       id: `mch_${crypto.randomBytes(6).toString("hex")}`,
       legalName: profile.name,
       email: profile.email,
@@ -100,7 +115,8 @@ export const googleCallback = async (req: Request, res: Response) => {
       verifiedCountry: "Pending",
       status: "approved",
       premium: false,
-      passkey: "pending",
+      passkey: pk,
+      secret_key: sk,
       emailVerified: true,
     } as any);
 

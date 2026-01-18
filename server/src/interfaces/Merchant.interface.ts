@@ -1,6 +1,6 @@
 export interface MerchantI {
   id: string;
-  email: string;
+  email?: string;
   password: string;
   legalName: string;
   phone?: string | null;
@@ -15,7 +15,7 @@ export interface MerchantI {
     },
   ];
   verifiedCountry: string;
-  documents: Array<{
+  documents?: Array<{
     category?: "kyc" | "poa" | "kyb";
     type?:
       | "passport"
@@ -32,15 +32,15 @@ export interface MerchantI {
       | "custom";
     document_id?: string | null;
     status?: "pending" | "verified" | "rejected";
-    uploaded_at: Date;
+    uploaded_at?: Date;
   }>;
-  documentVerified: Boolean;
-  created_at: Date;
+  documentVerified?: Boolean;
+  created_at?: Date;
   status: "pending" | "approved" | "rejected" | "suspended" | "deleted";
   credit?: number;
   passkey: string;
   secret_key: string;
-  premium: boolean;
+  premium?: boolean;
   emailVerified?: boolean;
   emailVerificationToken?: string | null;
   expiryDate?: number;
