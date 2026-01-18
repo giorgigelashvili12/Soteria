@@ -17,16 +17,17 @@ export const deposit = async (
     { account_id: id },
     {
       $setOnInsert: {
+        id: `bal_${uuidv4().split("-")[0]}`,
         account_id: id,
         pending: [],
         available: [],
         reserved: [],
       },
     },
-    { upsert: true, new: true },
+    { upsert: true, new: true, runValidators: true },
   );
 
-  const wallet = balance.pending.find((p) => p.currency === currency);
+  const wallet = balance.pending.find((p: any) => p.currency === currency);
 
   if (wallet) wallet.amount += amount;
   else {
