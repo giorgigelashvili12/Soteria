@@ -140,22 +140,18 @@ export const urlConfig = async (req: Request, res: Response) => {
   try {
     // @ts-ignore
     const merchantId = req.user?._id;
-    const { success_url, failed_url } = req.body;
+    const { success_url, failed_url, base_redirect } = req.body;
 
     const urlRegex = /^(https?:\/\/)/;
     if (success_url && !urlRegex.test(success_url)) {
-      return res
-        .status(400)
-        .json({
-          msg: "Invalid success URL format. Must start with http or https",
-        });
+      return res.status(400).json({
+        msg: "Invalid success URL format. Must start with http or https",
+      });
     }
     if (failed_url && !urlRegex.test(failed_url)) {
-      return res
-        .status(400)
-        .json({
-          msg: "Invalid failed URL format. Must start with http or https",
-        });
+      return res.status(400).json({
+        msg: "Invalid failed URL format. Must start with http or https",
+      });
     }
 
     const DEFAULT_SUCCESS =
@@ -168,6 +164,7 @@ export const urlConfig = async (req: Request, res: Response) => {
       {
         success_url: success_url || DEFAULT_SUCCESS,
         failed_url: failed_url || DEFAULT_FAILED,
+        base_redirect: base_redirect || "",
         setup: true,
       },
       { new: true, runValidators: true },
@@ -182,6 +179,7 @@ export const urlConfig = async (req: Request, res: Response) => {
       data: {
         success: updatedMerchant.success_url,
         failed: updatedMerchant.failed_url,
+        base: updatedMerchant.base_redirect,
         setup: updatedMerchant.setup,
       },
     });
