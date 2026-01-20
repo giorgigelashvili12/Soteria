@@ -86,10 +86,11 @@ const CheckoutPage = () => {
           intent: clientSecret || "",
           currency: details?.currency || "GEL",
           redirect_url: details?.success_url || "",
+          base_redirect: details?.base_redirect || "",
         }).toString();
 
         setTimeout(() => {
-          const finalUrl = `${successBase}?${params}`;
+          const finalUrl = `${successBase}${successBase.includes("?") ? "&" : "?"}${params}`;
 
           if (successBase.startsWith("http")) {
             window.location.href = finalUrl;
@@ -99,17 +100,18 @@ const CheckoutPage = () => {
         }, 3000);
       } else {
         const failedBase = details?.failed_url || "/checkout/failed";
+
         const failParams = new URLSearchParams({
           merchant: details?.merchantName || "Merchant",
           reason: data.msg || "Transaction Declined",
           return_to: window.location.href,
         }).toString();
 
-        ErrMsg("Payment failed");
+        ErrMsg(data.msg || "Payment failed");
         setStatus("error");
 
         setTimeout(() => {
-          const finalFailUrl = `${failedBase}?${failParams}`;
+          const finalFailUrl = `${failedBase}${failedBase.includes("?") ? "&" : "?"}${failParams}`;
           if (failedBase.startsWith("http")) {
             window.location.href = finalFailUrl;
           } else {

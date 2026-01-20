@@ -5,6 +5,7 @@ import Auth from "./pages/Auth";
 import Product from "./pages/Products";
 import Config from "./pages/Config";
 import Front from "./pages/Front";
+import Redirect from "./pages/Redirect";
 
 const API = () => {
   const [activeTab, setActiveTab] = useState("intro");
@@ -18,6 +19,7 @@ const API = () => {
   const menuItems = [
     { id: "intro", label: "შესავალი" },
     { id: "auth", label: "ავტორიზაცია" },
+    { id: "connection", label: "რედირექციის ლინკები" },
     {
       id: "config",
       label: "კონფიგურაცია",
@@ -176,6 +178,7 @@ const API = () => {
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
             {activeTab === "intro" && <Intro />}
             {activeTab === "auth" && <Auth />}
+            {activeTab === "connection" && <Redirect />}
             {activeTab === "config" && <Config />}
             {activeTab === "catalog" && <Product />}
             {activeTab === "react" && <Front />}

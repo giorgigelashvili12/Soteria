@@ -53,6 +53,7 @@ const mercantSchema = new mongoose.Schema<MerchantI>({
   ],
   success_url: { type: String, required: false },
   failed_url: { type: String, required: false },
+  base_redirect: { type: String, required: false },
   setup: { type: Boolean, default: false },
   documentVerified: { type: Boolean, default: false },
   created_at: { type: Date, required: true, default: Date.now },

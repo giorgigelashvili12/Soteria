@@ -1,4 +1,4 @@
-import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { ShieldCheck, ArrowLeft, Download, ExternalLink } from "lucide-react";
 import "../../assets/styles/global.css";
 import { receipt } from "./receipt";
@@ -11,11 +11,13 @@ export default function Success() {
   const amount = searchParams.get("amount") || "0.00";
   const merchant = searchParams.get("merchant") || "the merchant";
   const id = searchParams.get("intent")?.slice(-8).toUpperCase() || "TXN-7892";
+  const base_redirect = searchParams.get("base_redirect") || "";
+  console.log(base_redirect);
 
   //const [status, setStatus] = useState("");
   //const nav = useNavigate();
 
-  const redirectUrl = searchParams.get("redirect_url");
+  const redirectUrl = searchParams.get("base_redirect");
 
   const goBack = () => {
     if (redirectUrl) {
@@ -104,11 +106,11 @@ export default function Success() {
             </button>
           ) : (
             <Link
-              to="/dashboard"
+              to={base_redirect}
               className="mt-6 w-full py-4 flex items-center justify-center gap-2 text-gray-400 font-bold hover:text-gray-900 transition-colors text-sm"
             >
               <ArrowLeft size={16} />
-              Return to Dashboard
+              Go Back
             </Link>
           )}
         </div>

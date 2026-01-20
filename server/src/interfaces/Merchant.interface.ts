@@ -36,6 +36,7 @@ export interface MerchantI {
   }>;
   success_url?: string;
   failed_url?: string;
+  base_redirect?: string;
   setup: boolean;
   documentVerified?: Boolean;
   created_at?: Date;

@@ -98,6 +98,7 @@ export interface IntentDetails {
   metadata: object;
   success_url: string;
   failed_url: string;
+  base_redirect: string;
 }
 
 interface BalanceEntry {

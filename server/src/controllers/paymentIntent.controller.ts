@@ -138,46 +138,55 @@ export const publicIntent = async (req: Request, res: Response) => {
 
 export const urlConfig = async (req: Request, res: Response) => {
   try {
-    // const { success_url, failed_url } = req.body;
-    // let set1 = '';
-    // let set2 = '';
-
-    // if (!success_url) {
-    //   set1 = 'https://soteria-client.onrender.com/checkout/success';
-    // } else if(!failed_url) {
-    //   set2 = 'https://soteria-client.onrender.com/checkout/failed';
-    // }
     // @ts-ignore
-    const merchantId = req.user?.id;
+    const merchantId = req.user?._id;
     const { success_url, failed_url } = req.body;
 
-    const set1 =
-      success_url || "https://soteria-client.onrender.com/checkout/success";
-    const set2 =
-      failed_url || "https://soteria-client.onrender.com/checkout/failed";
+    const urlRegex = /^(https?:\/\/)/;
+    if (success_url && !urlRegex.test(success_url)) {
+      return res
+        .status(400)
+        .json({
+          msg: "Invalid success URL format. Must start with http or https",
+        });
+    }
+    if (failed_url && !urlRegex.test(failed_url)) {
+      return res
+        .status(400)
+        .json({
+          msg: "Invalid failed URL format. Must start with http or https",
+        });
+    }
+
+    const DEFAULT_SUCCESS =
+      "https://soteria-client.onrender.com/checkout/success";
+    const DEFAULT_FAILED =
+      "https://soteria-client.onrender.com/checkout/failed";
 
     const updatedMerchant = await Merchant.findByIdAndUpdate(
       merchantId,
       {
-        success_url: set1,
-        failed_url: set2,
+        success_url: success_url || DEFAULT_SUCCESS,
+        failed_url: failed_url || DEFAULT_FAILED,
         setup: true,
       },
-      { new: true },
+      { new: true, runValidators: true },
     );
 
     if (!updatedMerchant) {
-      return res.status(400).json({ msg: "merchant not found" });
+      return res.status(404).json({ msg: "Merchant not found" });
     }
 
     return res.status(200).json({
-      msg: "URLs added",
+      msg: "Settings updated successfully",
       data: {
         success: updatedMerchant.success_url,
         failed: updatedMerchant.failed_url,
+        setup: updatedMerchant.setup,
       },
     });
   } catch (e) {
-    return res.status(500).json({ msg: "internal server error", err: e });
+    console.error("URL_CONFIG_ERROR:", e);
+    return res.status(500).json({ msg: "Internal server error" });
   }
 };
