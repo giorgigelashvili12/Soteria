@@ -135,3 +135,49 @@ export const publicIntent = async (req: Request, res: Response) => {
     items: displayItems,
   });
 };
+
+export const urlConfig = async (req: Request, res: Response) => {
+  try {
+    // const { success_url, failed_url } = req.body;
+    // let set1 = '';
+    // let set2 = '';
+
+    // if (!success_url) {
+    //   set1 = 'https://soteria-client.onrender.com/checkout/success';
+    // } else if(!failed_url) {
+    //   set2 = 'https://soteria-client.onrender.com/checkout/failed';
+    // }
+    // @ts-ignore
+    const merchantId = req.user?.id;
+    const { success_url, failed_url } = req.body;
+
+    const set1 =
+      success_url || "https://soteria-client.onrender.com/checkout/success";
+    const set2 =
+      failed_url || "https://soteria-client.onrender.com/checkout/failed";
+
+    const updatedMerchant = await Merchant.findByIdAndUpdate(
+      merchantId,
+      {
+        success_url: set1,
+        failed_url: set2,
+        setup: true,
+      },
+      { new: true },
+    );
+
+    if (!updatedMerchant) {
+      return res.status(400).json({ msg: "merchant not found" });
+    }
+
+    return res.status(200).json({
+      msg: "URLs added",
+      data: {
+        success: updatedMerchant.success_url,
+        failed: updatedMerchant.failed_url,
+      },
+    });
+  } catch (e) {
+    return res.status(500).json({ msg: "internal server error", err: e });
+  }
+};

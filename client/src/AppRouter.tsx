@@ -17,13 +17,16 @@ import "./assets/styles/global.css";
 import WorkspaceWrapper from "./features/settings/Wrapper";
 import AcceptInvite from "./features/settings/pages/AcceptInvite";
 import Workspace from "./features/settings/pages/Workspace";
-import CheckoutPage from "./features/shared/Checkout";
+import CheckoutPage from "./features/checkout/Checkout";
 import ProductCatalog from "./features/product-catalog/ProductCatalog";
 import API from "./features/docs/API";
 import HomePage from "./features/HomePage";
 import Balances from "./features/balances/Balances";
 import Transactions from "./features/transactions/Transactions";
 import Customers from "./features/customers/Customers";
+import Verification from "./features/shared/Verification";
+import Success from "./features/checkout/Success";
+import Failed from "./features/checkout/Failed";
 
 export const AppRouter = createBrowserRouter([
   {
@@ -37,6 +40,14 @@ export const AppRouter = createBrowserRouter([
       {
         path: "/checkout/:clientSecret",
         Component: CheckoutPage,
+      },
+      {
+        path: "/checkout/success",
+        Component: Success,
+      },
+      {
+        path: "/checkout/failed",
+        Component: Failed,
       },
       {
         path: "/api",
@@ -65,6 +76,10 @@ export const AppRouter = createBrowserRouter([
           {
             index: true,
             Component: DashHome,
+          },
+          {
+            path: "setup",
+            Component: Verification,
           },
           {
             path: "balances",

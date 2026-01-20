@@ -96,6 +96,8 @@ export interface IntentDetails {
   merchantVerified: boolean;
   merchantLevel: number;
   metadata: object;
+  success_url: string;
+  failed_url: string;
 }
 
 interface BalanceEntry {

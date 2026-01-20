@@ -84,7 +84,7 @@ export default function Header() {
       </div>
 
       <Link
-        to=""
+        to="setup"
         className="bg-stone-50 flex items-center p-2 px-4 gap-3 hover:bg-stone-100 rounded-md border border-stone-300 transition-all"
       >
         <span className="text-sm font-medium">Complete Setup</span>

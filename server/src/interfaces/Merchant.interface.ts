@@ -34,6 +34,9 @@ export interface MerchantI {
     status?: "pending" | "verified" | "rejected";
     uploaded_at?: Date;
   }>;
+  success_url?: string;
+  failed_url?: string;
+  setup: boolean;
   documentVerified?: Boolean;
   created_at?: Date;
   status: "pending" | "approved" | "rejected" | "suspended" | "deleted";

@@ -24,7 +24,7 @@ export const deposit = async (
         reserved: [],
       },
     },
-    { upsert: true, new: true, runValidators: true },
+    { upsert: true, new: true, setDefaultsOnInsert: true },
   );
 
   const wallet = balance.pending.find((p: any) => p.currency === currency);

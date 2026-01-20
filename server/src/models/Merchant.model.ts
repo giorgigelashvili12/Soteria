@@ -51,6 +51,9 @@ const mercantSchema = new mongoose.Schema<MerchantI>({
       uploaded_at: { type: Date, default: Date.now },
     },
   ],
+  success_url: { type: String, required: false },
+  failed_url: { type: String, required: false },
+  setup: { type: Boolean, default: false },
   documentVerified: { type: Boolean, default: false },
   created_at: { type: Date, required: true, default: Date.now },
   status: {
