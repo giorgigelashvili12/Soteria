@@ -42,6 +42,7 @@ const CheckoutPage = () => {
 
         if (data.status === "succeeded") {
           setStatus("success");
+
           const params = new URLSearchParams({
             amount: (data.amount / 100).toFixed(2),
             merchant: data.merchantName,
@@ -49,6 +50,9 @@ const CheckoutPage = () => {
           }).toString();
 
           redirect(`${data.success_url}?${params}`);
+        } else if (data.status === "expired" || data.status === "cancelled") {
+          setStatus("error");
+          ErrMsg("This checkout session is no longer active.");
         } else {
           setStatus("idle");
         }

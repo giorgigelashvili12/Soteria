@@ -5,7 +5,7 @@ import PaymentIntent from "../models/PaymentIntent.model.js";
 
 export const stats = async (req: Request, res: Response) => {
   //@ts-ignore
-  const merchant = req.merchant._id;
+  const merchant = req.merchant._id || req.merchant.id;
   const balance = await Balance.findOne({ account_id: merchant });
   const transactions = await Transaction.find({ account_id: merchant })
     .sort({ createdAt: -1 })

@@ -1,2 +1,21 @@
-# Demo-Project
-# Soteria
+export const grossVolume = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const merchantId = req.user?._id || req.user?.id; 
+
+    let tr = await Transaction.find({ account_id: merchantId }).sort({ created_at: 1 });
+
+    const chartData = tr.map((t) => ({
+      date: new Date(t.created_at).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      }),
+      gross: t.amount || 0,
+      net: (t.amount || 0) - (t.fee || 0),
+    }));
+
+    res.json(chartData);
+  } catch (e: any) {
+    res.status(500).json({ msg: "error fetching metrics" });
+  }
+};

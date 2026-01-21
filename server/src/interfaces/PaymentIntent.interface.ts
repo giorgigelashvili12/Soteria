@@ -15,7 +15,12 @@ export interface PaymentIntentI {
   amount_received: number;
   currency: Currencies;
   idempotency_key: string;
-  status: "requires_payment_method" | "processing" | "succeeded" | "failed";
+  status:
+    | "requires_payment_method"
+    | "processing"
+    | "succeeded"
+    | "failed"
+    | "expired";
   customer_id?: string | null;
   merchant_id: string;
   merchant_name: string;

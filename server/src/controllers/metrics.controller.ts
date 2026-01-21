@@ -1,38 +1,16 @@
 import Transaction from "../models/Transaction.model.js";
+import Balance from "../models/Balance.model.js";
 import { v4 as uuidv4 } from "uuid";
 import type { Request, Response } from "express";
 
 export const grossVolume = async (req: Request, res: Response) => {
   try {
-    let tr: any[] = await Transaction.find().sort({ created_at: 1 });
+    //@ts-ignore
+    const merchantId = req.user?._id || req.user?.id;
 
-    if (!tr.length) {
-      const test = [
-        {
-          id: `txn_${uuidv4()}`,
-          amount: 1200,
-          fee: 50,
-          account_id: "test_1",
-          currency: "USD",
-          status: "completed",
-          live: true,
-          created_at: new Date("2025-10-01"),
-          card: { brand: "visa", last4: "4242", country: "USD" },
-        },
-        {
-          id: `txn_${uuidv4()}`,
-          amount: 1500,
-          fee: 80,
-          account_id: "test_1",
-          currency: "USD",
-          status: "completed",
-          live: true,
-          created_at: new Date("2025-10-02"),
-          card: { brand: "mastercard", last4: "1111", country: "USD" },
-        },
-      ];
-      tr = await Transaction.insertMany(test);
-    }
+    let tr = await Transaction.find({ account_id: merchantId }).sort({
+      created_at: 1,
+    });
 
     const chartData = tr.map((t) => ({
       date: new Date(t.created_at).toLocaleDateString("en-US", {

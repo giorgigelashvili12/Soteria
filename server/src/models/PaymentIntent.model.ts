@@ -41,7 +41,13 @@ const paymentIntentSchema = new mongoose.Schema<PaymentIntentI>({
   status: {
     type: String,
     required: true,
-    enum: ["requires_payment_method", "processing", "succeeded", "failed"],
+    enum: [
+      "requires_payment_method",
+      "processing",
+      "succeeded",
+      "failed",
+      "expired",
+    ],
   },
   live: { type: Boolean, required: true, default: false },
   customer_id: { type: String, default: null },

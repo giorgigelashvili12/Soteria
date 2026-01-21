@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Wallet, ArrowUpRight, RefreshCcw, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { FinanceStats, Transaction } from "../@types"; // Ensure Transaction is exported from your types file
+import type { FinanceStats, Transaction } from "../@types";
 
 export default function Balances() {
   const [stats, setStats] = useState<FinanceStats | null>(null);
@@ -16,6 +16,7 @@ export default function Balances() {
           "https://soteria-q27e.onrender.com/api/v1/balances/stats",
           { withCredentials: true },
         );
+        console.log(res.data);
         setStats(res.data);
       } catch (e) {
         console.error("Failed to fetch finance stats", e);

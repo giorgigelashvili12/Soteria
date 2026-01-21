@@ -78,8 +78,9 @@ export const confirm = async (req: Request, res: Response) => {
 
     const intent = await PaymentIntent.findOne({ client_secret });
     if (!intent) throw new Error("Invalid Secret");
+
     if (intent.status === "succeeded") {
-      return res.status(200).json({ status: "already_paid" });
+      return res.status(200).json({ status: "already paid for" });
     }
 
     const chargeSuccessful = await executePayment(intent.id);
@@ -124,14 +125,21 @@ export const publicIntent = async (req: Request, res: Response) => {
 
   const merchant = await Merchant.findOne({ id: intent.merchant_id });
 
-  const displayItems =
-    intent.items && intent.items.length > 0 ? intent.items : [];
+  // @ts-ignore
+  const displayItems = intent.metadata?.items
+    ? // @ts-ignore
+      JSON.parse(intent.metadata.items)
+    : [];
 
   return res.json({
     amount: intent.amount,
     currency: intent.currency,
+    status: intent.status,
     merchantName: intent.merchant_name || merchant?.legalName,
     merchantVerified: merchant?.emailVerified || false,
+    success_url: merchant?.success_url,
+    failed_url: merchant?.failed_url,
+    base_redirect: merchant?.base_redirect,
     items: displayItems,
   });
 };
@@ -188,3 +196,7 @@ export const urlConfig = async (req: Request, res: Response) => {
     return res.status(500).json({ msg: "Internal server error" });
   }
 };
+
+// export const validate = async (req: Request, res: Response) => {
+
+// }
