@@ -17,21 +17,12 @@ export default function Balances() {
           { withCredentials: true },
         );
 
-        const div100 = <T extends { amount: number }>(item: T): T => ({
-          ...item,
-          amount: item.amount / 100,
-        });
-
         const { balance, transactions, volume } = res.data;
 
-        const data = {
-          balance: {
-            ...balance,
-            available: balance?.available?.map(div100) || [],
-            pending: balance?.pending?.map(div100) || [],
-          },
-          transactions: transactions?.map(div100) || [],
-          totalVolume: (volume as number) / 100,
+        const data: FinanceStats = {
+          balance,
+          transactions,
+          totalVolume: volume,
         };
 
         console.log(data);
