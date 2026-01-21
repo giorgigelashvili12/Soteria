@@ -6,10 +6,13 @@ import PaymentIntent from "../models/PaymentIntent.model.js";
 export const stats = async (req: Request, res: Response) => {
   //@ts-ignore
   const merchant = req.merchant._id || req.merchant.id;
+  console.log(merchant);
   const balance = await Balance.findOne({ account_id: merchant });
+  console.log(balance);
   const transactions = await Transaction.find({ account_id: merchant })
     .sort({ createdAt: -1 })
     .limit(10);
+  console.log(transactions);
 
   const intents = await PaymentIntent.find({
     //@ts-ignore
