@@ -16,8 +16,26 @@ export default function Balances() {
           "https://soteria-q27e.onrender.com/api/v1/balances/stats",
           { withCredentials: true },
         );
-        console.log(res.data);
-        setStats(res.data);
+
+        const div100 = <T extends { amount: number }>(item: T): T => ({
+          ...item,
+          amount: item.amount / 100,
+        });
+
+        const { balance, transactions, volume } = res.data;
+
+        const data = {
+          balance: {
+            ...balance,
+            available: balance?.available?.map(div100) || [],
+            pending: balance?.pending?.map(div100) || [],
+          },
+          transactions: transactions?.map(div100) || [],
+          totalVolume: (volume as number) / 100,
+        };
+
+        console.log(data);
+        setStats(data);
       } catch (e) {
         console.error("Failed to fetch finance stats", e);
       } finally {
