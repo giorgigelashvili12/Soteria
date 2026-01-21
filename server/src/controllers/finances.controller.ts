@@ -22,6 +22,7 @@ export const stats = async (req: Request, res: Response) => {
   const volume = intents.reduce((acc, cur) => acc + cur.amount, 0);
 
   res.json({
+    test: [merchant, balance, transactions],
     balance,
     transactions,
     volume,
