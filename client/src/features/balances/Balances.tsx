@@ -36,8 +36,8 @@ export default function Balances() {
     );
   }
 
-  const available = stats?.balance?.available?.[0]?.amount || 0;
-  const pending = stats?.balance?.pending?.[0]?.amount || 0;
+  const available = (stats?.balance?.available?.[0]?.amount || 0) / 100;
+  const pending = (stats?.balance?.pending?.[0]?.amount || 0) / 100;
   const currency = stats?.balance?.available?.[0]?.currency || "GEL";
 
   return (
@@ -57,7 +57,7 @@ export default function Balances() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">
-              {available} {currency}
+              {available.toFixed(2)} {currency}
             </div>
             <p className="text-xs text-emerald-600 mt-1">
               Ready to withdraw to bank
@@ -74,7 +74,7 @@ export default function Balances() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">
-              {pending} {currency}
+              {pending.toFixed(2)} {currency}
             </div>
             <p className="text-xs text-amber-600 mt-1">Clears in T+3 days</p>
           </CardContent>
