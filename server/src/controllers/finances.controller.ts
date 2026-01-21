@@ -5,7 +5,7 @@ import PaymentIntent from "../models/PaymentIntent.model.js";
 
 export const stats = async (req: Request, res: Response) => {
   //@ts-ignore
-  const merchant = req.user.id;
+  const merchant = req.merchant.id;
   console.log(merchant);
   const balance = await Balance.findOne({ account_id: merchant });
   console.log(balance);

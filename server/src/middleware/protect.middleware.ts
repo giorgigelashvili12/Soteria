@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import Merchant from "../models/Merchant.model.js";
 
 export const protect = async (req: any, res: any, next: any) => {
-  console.log("All Cookies:", req.cookies);
-  console.log("HS Cookie:", req.cookies?.hs);
   const token = req.cookies?.hs;
   const passkey = req.query.passkey || req.headers["x-passkey"];
 
