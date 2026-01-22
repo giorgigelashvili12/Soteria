@@ -1,5 +1,4 @@
 "use client";
-// cda - dubli ori
 
 import { useEffect, useState } from "react";
 import {
@@ -9,7 +8,14 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Trash, MoreHorizontal, Plus, Search, Copy } from "lucide-react";
+import {
+  MoreHorizontal,
+  Plus,
+  Search,
+  Copy,
+  Trash2,
+  AlertTriangle,
+} from "lucide-react";
 
 import {
   Table,
@@ -40,13 +46,16 @@ import {
 import { Label } from "@/components/ui/label";
 import { Error } from "../messages/Error";
 import { Success } from "../messages/Success";
-import type { Product } from "../@types";
-import type { ProductI } from "../@types";
+import type { Product, ProductI } from "../@types";
 
 export default function ProductCatalog() {
   const [data, setData] = useState<Product[]>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
   const [newProduct, setNewProduct] = useState({
     name: "",
     sku: "",
@@ -63,47 +72,18 @@ export default function ProductCatalog() {
             credentials: "include",
           },
         );
-
-        const data = await res.json();
-
+        const fetchedData = await res.json();
         if (res.ok) {
-          const normalized = data.map((p: ProductI) => ({
+          const normalized = fetchedData.map((p: ProductI) => ({
             ...p,
             id: p.id || p._id?.toString(),
           }));
           setData(normalized);
-          Success({
-            title: "Products loaded",
-            description: (
-              <ul className="list-disc list-inside text-sm">
-                <li>Products loaded.</li>
-              </ul>
-            ),
-          });
-        } else {
-          Error({
-            title: "Unexpected error",
-            description: (
-              <ul className="list-disc list-inside text-sm">
-                {/*@ts-expect-error ki arsebibs. */}
-                <li>{(res.msg, "rejected request")}</li>
-              </ul>
-            ),
-          });
         }
-      } catch (e: unknown) {
-        console.error("Failed to load", e);
-        Error({
-          title: "Failed to load",
-          description: (
-            <ul className="list-disc list-inside text-sm">
-              <li>Failed to load</li>
-            </ul>
-          ),
-        });
+      } catch (e) {
+        console.error("Load failed", e);
       }
     };
-
     loadProducts();
   }, []);
 
@@ -124,73 +104,44 @@ export default function ProductCatalog() {
 
       if (res.ok) {
         const result = await res.json();
-        const added = result.product;
-        setData((prev) => [
-          ...prev,
-          {
-            id: added.id,
-            name: added.name,
-            sku: added.sku,
-            price: added.price,
-            currency: added.currency,
-          },
-        ]);
+        setData((prev) => [...prev, result.product]);
         setIsAddOpen(false);
         setNewProduct({ name: "", sku: "", price: "", currency: "GEL" });
-        Success({
-          title: "Product Created",
-          description: "Your product is now in the catalog.",
-        });
-      } else {
-        const err = await res.json();
-        Error({
-          title: "Failed to create",
-          description: err.msg || "Check your fields.",
-        });
+        Success({ title: "Created", description: "Product added." });
       }
     } catch (e) {
+      Error("Rejected request");
       console.error(e);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (confirm("Delete this product?")) {
-      setData((prev) => prev.filter((p) => p.id !== id));
-    }
-
+  const confirmDelete = async () => {
+    if (!selectedId) return;
+    setLoading(true);
     try {
       const res = await fetch(
         "https://soteria-q27e.onrender.com/api/v1/products/del",
         {
           method: "POST",
-          body: JSON.stringify({ id }),
+          body: JSON.stringify({ id: selectedId }),
           headers: { "Content-Type": "application/json" },
           credentials: "include",
         },
       );
 
       if (res.ok) {
-        setData((prev) => prev.filter((p: ProductI) => p.id !== id));
+        setData((prev) => prev.filter((p) => p.id !== selectedId));
+        setIsDeleteOpen(false);
+        Success({ title: "Deleted", description: "Product removed." });
       } else {
-        Error({
-          title: "Failed to delete",
-          description: (
-            <ul className="list-disc list-inside text-sm">
-              <li>Couldn't delete</li>
-            </ul>
-          ),
-        });
+        alert("Delete failed on server.");
       }
-    } catch (e: unknown) {
-      console.error("unexpected", e);
-      Error({
-        title: "Failed to delete",
-        description: (
-          <ul className="list-disc list-inside text-sm">
-            <li>Unexpected error</li>
-          </ul>
-        ),
-      });
+    } catch (e) {
+      Error("Rejected request");
+      console.error(e);
+    } finally {
+      setLoading(false);
+      setSelectedId(null);
     }
   };
 
@@ -199,19 +150,13 @@ export default function ProductCatalog() {
       accessorKey: "id",
       header: "Product ID",
       cell: ({ row }) => (
-        <code className="text-xs bg-muted px-1 py-0.5 rounded text-muted-foreground">
+        <code className="text-xs bg-muted px-1 py-0.5 rounded">
           {row.original.id}
         </code>
       ),
     },
-    {
-      accessorKey: "sku",
-      header: "SKU",
-    },
-    {
-      accessorKey: "name",
-      header: "Name",
-    },
+    { accessorKey: "sku", header: "SKU" },
+    { accessorKey: "name", header: "Name" },
     {
       accessorKey: "price",
       header: "Price",
@@ -234,37 +179,19 @@ export default function ProductCatalog() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
             <DropdownMenuItem
-              onClick={() => {
-                navigator.clipboard.writeText(row.original.id);
-                Success({
-                  title: "Copied",
-                  description: "Product ID copied to clipboard",
-                });
-              }}
+              onClick={() => navigator.clipboard.writeText(row.original.id)}
             >
               <Copy className="mr-2 h-4 w-4" /> Copy ID
             </DropdownMenuItem>
-
             <DropdownMenuItem
+              className="text-red-600"
               onClick={() => {
-                navigator.clipboard.writeText(row.original.sku);
-                Success({
-                  title: "Copied",
-                  description: "SKU copied to clipboard",
-                });
+                setSelectedId(row.original.id);
+                setIsDeleteOpen(true);
               }}
             >
-              <Copy className="mr-2 h-4 w-4" /> Copy SKU
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              onClick={() => handleDelete(row.original.id)}
-              className="text-red-600 hover:text-red-600"
-            >
-              <Trash className="mr-2 h-4 w-4 text-red-600 hover:text-red-600" />{" "}
-              Delete
+              <Trash2 className="mr-2 h-4 w-4" /> Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -287,30 +214,22 @@ export default function ProductCatalog() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Products</h1>
-          <p className="text-muted-foreground">
-            Manage your merchant catalog and pricing.
-          </p>
+          <p className="text-muted-foreground">Manage your merchant catalog.</p>
         </div>
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-linear-to-r from-emerald-500 to-emerald-600 cursor-pointer">
+            <Button className="bg-emerald-600 hover:bg-emerald-700">
               <Plus className="mr-2 h-4 w-4" /> Add Product
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-106.25">
+          <DialogContent>
             <DialogHeader>
               <DialogTitle>Add New Product</DialogTitle>
-              <DialogDescription>
-                Enter the details for your new catalog item.
-              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
+                <Label className="text-right">Name</Label>
                 <Input
-                  id="name"
                   className="col-span-3"
                   value={newProduct.name}
                   onChange={(e) =>
@@ -319,11 +238,8 @@ export default function ProductCatalog() {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="sku" className="text-right">
-                  SKU
-                </Label>
+                <Label className="text-right">SKU</Label>
                 <Input
-                  id="sku"
                   className="col-span-3"
                   value={newProduct.sku}
                   onChange={(e) =>
@@ -332,14 +248,9 @@ export default function ProductCatalog() {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="price" className="text-right">
-                  Price
-                </Label>
+                <Label className="text-right">Price</Label>
                 <Input
-                  id="price"
                   type="number"
-                  step="0.01"
-                  placeholder="0.00"
                   className="col-span-3"
                   value={newProduct.price}
                   onChange={(e) =>
@@ -349,24 +260,20 @@ export default function ProductCatalog() {
               </div>
             </div>
             <DialogFooter>
-              <Button type="button" onClick={handleAddProduct}>
-                Save Product
-              </Button>
+              <Button onClick={handleAddProduct}>Save Product</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
 
-      <div className="flex items-center gap-2">
-        <div className="relative w-full max-w-sm">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search SKUs or names..."
-            value={globalFilter ?? ""}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            className="pl-8"
-          />
-        </div>
+      <div className="relative w-full max-w-sm">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Search..."
+          value={globalFilter ?? ""}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          className="pl-8"
+        />
       </div>
 
       <div className="rounded-md border bg-white">
@@ -405,15 +312,40 @@ export default function ProductCatalog() {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {data.length > 0
-                    ? "Data exists but rows aren't rendering..."
-                    : "No products found."}
+                  No products found.
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
+
+      <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <div className="flex items-center gap-2 text-amber-600">
+              <AlertTriangle className="w-5 h-5" />
+              <DialogTitle>Confirm Deletion</DialogTitle>
+            </div>
+            <DialogDescription>
+              Are you sure you want to delete this product? This cannot be
+              undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={confirmDelete}
+              disabled={loading}
+            >
+              {loading ? "Deleting..." : "Delete Product"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
