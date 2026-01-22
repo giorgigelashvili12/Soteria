@@ -126,10 +126,18 @@ export const publicIntent = async (req: Request, res: Response) => {
   const merchant = await Merchant.findOne({ id: intent.merchant_id });
 
   // @ts-ignore
-  const displayItems = intent.metadata?.items
-    ? // @ts-ignore
-      JSON.parse(intent.metadata.items)
-    : [];
+  const displayItems = Array.isArray(intent.items) ? intent.items : [];
+  // let displayItems = [];
+  //   try {
+  //     if (intent.metadata?.items) {
+  //       displayItems = typeof intent.metadata.items === 'string'
+  //         ? JSON.parse(intent.metadata.items)
+  //         : intent.metadata.items;
+  //     }
+  //   } catch (e) {
+  //     console.error("Failed to parse metadata items", e);
+  //     displayItems = [];
+  //   }
 
   return res.json({
     amount: intent.amount,
