@@ -63,7 +63,6 @@ export default function ProductCatalog() {
     currency: "GEL",
   });
 
-  // Load Products
   useEffect(() => {
     const loadProducts = async () => {
       try {
@@ -81,13 +80,28 @@ export default function ProductCatalog() {
         }
       } catch (e) {
         console.error("Load failed", e);
+        Error("Rejected Request");
       }
     };
     loadProducts();
   }, []);
 
-  // Create Product
   const handleAddProduct = async () => {
+    if (
+      !newProduct.name.trim() ||
+      !newProduct.sku.trim() ||
+      !newProduct.price
+    ) {
+      Error("Fields cannot be empty");
+      return;
+    }
+
+    const numericPrice = parseFloat(newProduct.price);
+    if (isNaN(numericPrice) || numericPrice <= 0) {
+      Error("Fields cannot be empty");
+      return;
+    }
+
     try {
       const res = await fetch(
         "https://soteria-q27e.onrender.com/api/v1/products/prod",
@@ -97,7 +111,7 @@ export default function ProductCatalog() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...newProduct,
-            price: Math.round(parseFloat(newProduct.price) * 100),
+            price: Math.round(numericPrice * 100),
           }),
         },
       );
@@ -108,9 +122,11 @@ export default function ProductCatalog() {
         setIsAddOpen(false);
         setNewProduct({ name: "", sku: "", price: "", currency: "GEL" });
         Success({ title: "Created", description: "Product added." });
+      } else {
+        Error("delete failed");
       }
     } catch (e) {
-      Error({ title: "Rejected Request" });
+      Error("Rejected Request");
       console.error(e);
     }
   };
@@ -134,10 +150,10 @@ export default function ProductCatalog() {
         setIsDeleteOpen(false);
         Success({ title: "Deleted", description: "Product removed." });
       } else {
-        alert("Delete failed on server.");
+        Error("delete failed");
       }
     } catch (e) {
-      Error({ title: "Rejected Request" });
+      Error("Rejected Request");
       console.error(e);
     } finally {
       setLoading(false);
@@ -240,7 +256,7 @@ export default function ProductCatalog() {
                 </Label>
                 <Input
                   id="name"
-                  placeholder="Product Name"
+                  placeholder="e.g. Latte"
                   className="col-span-3"
                   value={newProduct.name}
                   onChange={(e) =>
@@ -254,7 +270,7 @@ export default function ProductCatalog() {
                 </Label>
                 <Input
                   id="sku"
-                  placeholder="SKU"
+                  placeholder="COF-001"
                   className="col-span-3"
                   value={newProduct.sku}
                   onChange={(e) =>
