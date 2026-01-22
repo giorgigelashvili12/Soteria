@@ -22,7 +22,7 @@ export default function Balances() {
         const data: FinanceStats = {
           balance,
           transactions,
-          totalVolume: volume / 100,
+          totalVolume: volume,
         };
 
         console.log(data);
@@ -98,7 +98,7 @@ export default function Balances() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-stone-900">
-              {stats?.totalVolume || 0} {currency}
+              {((stats?.totalVolume || 0) / 100).toFixed(2)} {currency}
             </div>
             <p className="text-xs text-stone-500 mt-1">
               Lifetime processed amount
