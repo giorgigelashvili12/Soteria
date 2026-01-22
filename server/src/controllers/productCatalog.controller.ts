@@ -40,7 +40,9 @@ export const getAll = async (req: Request, res: Response) => {
   try {
     // @ts-ignore
     const merchantId = req.merchant._id;
+    console.log(merchantId);
     const products = await Product.find({ merchant_id: merchantId }).lean();
+    console.log(products, product.length);
     return res.status(200).json(products);
   } catch (e) {
     return res.status(500).json({ msg: "Dashboard fetch failed" });
