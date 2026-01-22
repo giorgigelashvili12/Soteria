@@ -240,7 +240,7 @@ export default function ProductCatalog() {
                 </Label>
                 <Input
                   id="name"
-                  placeholder="e.g. Premium Coffee"
+                  placeholder="Product Name"
                   className="col-span-3"
                   value={newProduct.name}
                   onChange={(e) =>
@@ -254,7 +254,7 @@ export default function ProductCatalog() {
                 </Label>
                 <Input
                   id="sku"
-                  placeholder="COF-001"
+                  placeholder="SKU"
                   className="col-span-3"
                   value={newProduct.sku}
                   onChange={(e) =>
