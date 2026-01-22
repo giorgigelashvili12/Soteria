@@ -162,7 +162,7 @@ export default function ProductCatalog() {
       const res = await fetch(
         "https://soteria-q27e.onrender.com/api/v1/products/del",
         {
-          method: "DELETE",
+          method: "POST",
           body: JSON.stringify({ id }),
           headers: { "Content-Type": "application/json" },
           credentials: "include",
