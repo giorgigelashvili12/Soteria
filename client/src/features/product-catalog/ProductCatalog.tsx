@@ -356,7 +356,7 @@ export default function ProductCatalog() {
       </div>
 
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-106.25">
           <DialogHeader>
             <div className="flex items-center gap-2 text-amber-600">
               <AlertTriangle className="w-5 h-5" />

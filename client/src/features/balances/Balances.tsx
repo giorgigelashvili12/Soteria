@@ -22,7 +22,7 @@ export default function Balances() {
         const data: FinanceStats = {
           balance,
           transactions,
-          totalVolume: volume,
+          totalVolume: volume / 100,
         };
 
         console.log(data);
