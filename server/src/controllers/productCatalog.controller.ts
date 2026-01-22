@@ -40,7 +40,7 @@ export const getAll = async (req: Request, res: Response) => {
   try {
     console.warn("triggered");
     // @ts-ignore
-    const merchantId = req.merchant._id;
+    const merchantId = req.merchant.id;
     console.log(merchantId);
     const products = await Product.find({ merchant_id: merchantId }).lean();
     console.log(products, products.length);
