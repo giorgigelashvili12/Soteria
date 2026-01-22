@@ -1,4 +1,5 @@
 "use client";
+// rato ar shveba ra sikvdili unda (vtestav ar sheimchnio)
 
 import { useEffect, useState } from "react";
 import {
