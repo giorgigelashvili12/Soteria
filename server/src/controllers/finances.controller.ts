@@ -6,17 +6,29 @@ import PaymentIntent from "../models/PaymentIntent.model.js";
 export const stats = async (req: Request, res: Response) => {
   //@ts-ignore
   const merchant = req.merchant.id;
-  const balance = await Balance.findOne({ account_id: merchant });
-  const transactions = await Transaction.find({ account_id: merchant })
-    .sort({ createdAt: -1 })
-    .limit(10);
 
-  const intents = await PaymentIntent.find({
-    //@ts-ignore
-    merchant_id: req.merchant.id,
-    status: "succeeded",
-  });
-  const volume = intents.reduce((acc, cur) => acc + cur.amount, 0);
+  const [balance, transactions, volumeResult] = await Promise.all([
+    Balance.findOne({ account_id: merchant }),
+    Transaction.find({ account_id: merchant })
+      .sort({ createdAt: -1 })
+      .limit(10),
+    PaymentIntent.aggregate([
+      {
+        $match: {
+          merchant_id: merchant,
+          status: "succeeded",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: "$amount" },
+        },
+      },
+    ]),
+  ]);
+
+  const volume = volumeResult.length > 0 ? volumeResult[0].totalAmount : 0;
 
   res.json({
     balance,

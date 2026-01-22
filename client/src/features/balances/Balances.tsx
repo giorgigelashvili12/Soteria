@@ -130,7 +130,7 @@ export default function Balances() {
                     <td className="px-6 py-4 font-mono text-xs">{txn.id}</td>
                     <td className="px-6 py-4 capitalize">{txn.object}</td>
                     <td className="px-6 py-4 font-semibold">
-                      {txn.amount} {txn.currency}
+                      {txn.amount / 100} {txn.currency}
                     </td>
                     <td className="px-6 py-4">
                       <span
