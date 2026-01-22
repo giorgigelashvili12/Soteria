@@ -21,9 +21,7 @@ export default function Verification() {
         const res = await fetch(
           "https://soteria-q27e.onrender.com/api/v1/merchant/me",
           {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
+            credentials: "include",
           },
         );
         if (res.ok) {
@@ -66,10 +64,9 @@ export default function Verification() {
         "https://soteria-q27e.onrender.com/api/v1/payment-intent/url-config",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+
+          credentials: "include",
+
           body: JSON.stringify({
             success_url: urls.success,
             failed_url: urls.failed,
