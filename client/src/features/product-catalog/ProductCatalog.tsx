@@ -1,5 +1,5 @@
 "use client";
-// rato ar shveba ra sikvdili unda (vtestav ar sheimchnio)
+// cda - dubli ori
 
 import { useEffect, useState } from "react";
 import {
