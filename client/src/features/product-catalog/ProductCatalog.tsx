@@ -63,14 +63,13 @@ export default function ProductCatalog() {
     currency: "GEL",
   });
 
+  // Load Products
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const res = await fetch(
           "https://soteria-q27e.onrender.com/api/v1/products/dashboard-list",
-          {
-            credentials: "include",
-          },
+          { credentials: "include" },
         );
         const fetchedData = await res.json();
         if (res.ok) {
@@ -87,6 +86,7 @@ export default function ProductCatalog() {
     loadProducts();
   }, []);
 
+  // Create Product
   const handleAddProduct = async () => {
     try {
       const res = await fetch(
@@ -110,7 +110,7 @@ export default function ProductCatalog() {
         Success({ title: "Created", description: "Product added." });
       }
     } catch (e) {
-      Error("Rejected request");
+      Error({ title: "Rejected Request" });
       console.error(e);
     }
   };
@@ -137,7 +137,7 @@ export default function ProductCatalog() {
         alert("Delete failed on server.");
       }
     } catch (e) {
-      Error("Rejected request");
+      Error({ title: "Rejected Request" });
       console.error(e);
     } finally {
       setLoading(false);
@@ -150,7 +150,7 @@ export default function ProductCatalog() {
       accessorKey: "id",
       header: "Product ID",
       cell: ({ row }) => (
-        <code className="text-xs bg-muted px-1 py-0.5 rounded">
+        <code className="text-xs bg-muted px-1 py-0.5 rounded text-muted-foreground">
           {row.original.id}
         </code>
       ),
@@ -180,7 +180,10 @@ export default function ProductCatalog() {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(row.original.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(row.original.id);
+                Success({ title: "Copied", description: "ID copied" });
+              }}
             >
               <Copy className="mr-2 h-4 w-4" /> Copy ID
             </DropdownMenuItem>
@@ -216,6 +219,7 @@ export default function ProductCatalog() {
           <h1 className="text-3xl font-bold tracking-tight">Products</h1>
           <p className="text-muted-foreground">Manage your merchant catalog.</p>
         </div>
+
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>
             <Button className="bg-emerald-600 hover:bg-emerald-700">
@@ -225,11 +229,18 @@ export default function ProductCatalog() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add New Product</DialogTitle>
+              <DialogDescription>
+                Enter details for your new catalog item.
+              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label className="text-right">Name</Label>
+                <Label htmlFor="name" className="text-right">
+                  Name
+                </Label>
                 <Input
+                  id="name"
+                  placeholder="e.g. Premium Coffee"
                   className="col-span-3"
                   value={newProduct.name}
                   onChange={(e) =>
@@ -238,8 +249,12 @@ export default function ProductCatalog() {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label className="text-right">SKU</Label>
+                <Label htmlFor="sku" className="text-right">
+                  SKU
+                </Label>
                 <Input
+                  id="sku"
+                  placeholder="COF-001"
                   className="col-span-3"
                   value={newProduct.sku}
                   onChange={(e) =>
@@ -248,9 +263,13 @@ export default function ProductCatalog() {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label className="text-right">Price</Label>
+                <Label htmlFor="price" className="text-right">
+                  Price
+                </Label>
                 <Input
+                  id="price"
                   type="number"
+                  placeholder="0.00"
                   className="col-span-3"
                   value={newProduct.price}
                   onChange={(e) =>
@@ -269,7 +288,7 @@ export default function ProductCatalog() {
       <div className="relative w-full max-w-sm">
         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Search..."
+          placeholder="Search products..."
           value={globalFilter ?? ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
           className="pl-8"
@@ -321,19 +340,23 @@ export default function ProductCatalog() {
       </div>
 
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <div className="flex items-center gap-2 text-amber-600">
               <AlertTriangle className="w-5 h-5" />
               <DialogTitle>Confirm Deletion</DialogTitle>
             </div>
-            <DialogDescription>
-              Are you sure you want to delete this product? This cannot be
-              undone.
+            <DialogDescription className="pt-2">
+              Are you sure you want to delete this product? This action cannot
+              be undone.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteOpen(false)}
+              disabled={loading}
+            >
               Cancel
             </Button>
             <Button
