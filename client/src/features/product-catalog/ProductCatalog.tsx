@@ -109,7 +109,7 @@ export default function ProductCatalog() {
   const handleAddProduct = async () => {
     try {
       const res = await fetch(
-        "https://soteria-q27e.onrender.com/api/v1/products/",
+        "https://soteria-q27e.onrender.com/api/v1/products/prod",
         {
           method: "POST",
           credentials: "include",
@@ -159,7 +159,7 @@ export default function ProductCatalog() {
 
     try {
       const res = await fetch(
-        "https://soteria-q27e.onrender.com/api/v1/products/",
+        "https://soteria-q27e.onrender.com/api/v1/products/del",
         {
           method: "DELETE",
           body: JSON.stringify({ id }),

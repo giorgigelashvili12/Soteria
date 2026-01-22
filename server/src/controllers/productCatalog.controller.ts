@@ -108,6 +108,52 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
+export const clientCreate = async (req: Request, res: Response) => {
+  try {
+    const { name, price, currency, description, image_url, sku } = req.body;
+    //@ts-ignore
+    const mer_id = req.merchant.id;
+
+    if (!name || !price || !sku) {
+      return res
+        .status(400)
+        .json({ msg: "invalid required fields: name, price or sku" });
+    }
+
+    if (price <= 0 || typeof price !== "number") {
+      return res.status(400).json({ msg: "invalid parameter: price" });
+    }
+
+    if (!(currency in RATES)) {
+      return res.status(400).json({ msg: "currency not supported" });
+    }
+
+    const skuExists = await Product.findOne({
+      sku: sku.toUpperCase(),
+      merchant_id: mer_id,
+    });
+    if (skuExists) return res.status(409).json({ msg: "SKU exists" });
+
+    const product = await Product.create({
+      id: `prod_${uuidv4().split("-")[0]}`,
+      merchant_id: mer_id,
+      //@ts-ignore
+      merchant_name: req.merchant.legalName,
+      name,
+      price: Math.round(price),
+      currency,
+      sku: sku.toUpperCase().trim(),
+      description: description || "",
+      image_url: image_url || "",
+    });
+
+    return res.status(201).json({ msg: "created", product });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ msg: "internal server error", e });
+  }
+};
+
 export const edit = async (req: Request, res: Response) => {
   try {
     const { id, name, price, currency, sku, description, image_url, passkey } =
@@ -196,6 +242,36 @@ export const deleteProduct = async (req: Request, res: Response) => {
   } catch (e) {
     console.log(e);
     return res.status(500).json({ msg: "internal server error", data: e });
+  }
+};
+
+export const clientDelete = async (req: Request, res: Response) => {
+  try {
+    const id = req.body.id || req.params.id;
+
+    // @ts-ignore
+    const merchantId = req.merchant.id;
+
+    if (!id) {
+      return res.status(400).json({ msg: "product id is required" });
+    }
+
+    const deleted = await Product.findOneAndDelete({
+      id: id,
+      merchant_id: merchantId,
+    });
+
+    if (!deleted) {
+      return res.status(404).json({ msg: "product not found or unauthorized" });
+    }
+
+    return res.status(200).json({
+      msg: "product deleted successfully",
+      deletedId: id,
+    });
+  } catch (e) {
+    console.error("Delete Error:", e);
+    return res.status(500).json({ msg: "internal server error" });
   }
 };
 
