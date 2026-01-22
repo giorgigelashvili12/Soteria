@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 // routes
 app.use("/api/v1", router);
 
-app.get("*", (req, res) => {
+app.get("(.*)", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
