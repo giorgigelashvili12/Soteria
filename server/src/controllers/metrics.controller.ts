@@ -6,7 +6,7 @@ import type { Request, Response } from "express";
 export const grossVolume = async (req: Request, res: Response) => {
   try {
     //@ts-ignore
-    const merchantId = req.merchant._id || req.merchant.id;
+    const merchantId = req.merchant.id || req.merchant._id;
     console.log(merchantId);
 
     let tr = await Transaction.find({ account_id: merchantId }).sort({
