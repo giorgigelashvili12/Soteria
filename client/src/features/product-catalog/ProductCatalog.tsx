@@ -77,6 +77,7 @@ export default function ProductCatalog() {
             id: p.id || p._id?.toString(),
           }));
           setData(normalized);
+          Success("Products Loaded");
         }
       } catch (e) {
         console.error("Load failed", e);

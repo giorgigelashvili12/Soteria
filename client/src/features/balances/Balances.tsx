@@ -3,6 +3,7 @@ import axios from "axios";
 import { Wallet, ArrowUpRight, RefreshCcw, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { FinanceStats, Transaction } from "../@types";
+import { Success } from "../messages/Success";
 
 export default function Balances() {
   const [stats, setStats] = useState<FinanceStats | null>(null);
@@ -25,7 +26,8 @@ export default function Balances() {
           totalVolume: volume,
         };
 
-        console.log(data);
+        //console.log(data);
+        Success("Balanced Loaded");
         setStats(data);
       } catch (e) {
         console.error("Failed to fetch finance stats", e);
