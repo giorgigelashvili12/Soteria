@@ -69,11 +69,9 @@ export const grossVolume = async (req: Request, res: Response) => {
       },
     ]);
 
-    console.log("Aggregated Chart Data:", chartData);
-
     res.json(chartData);
   } catch (e: any) {
-    console.error("Aggregation Error:", e);
+    console.error(e);
     res.status(500).json({ msg: "error fetching metrics" });
   }
 };
