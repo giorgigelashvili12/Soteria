@@ -52,6 +52,7 @@ export default function Verification() {
 
     if (!urls.success || !urls.failed || !urls.base_redirect) {
       setShow(true);
+      console.log(urls);
     } else {
       saveData();
     }
