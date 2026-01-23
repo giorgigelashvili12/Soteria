@@ -176,7 +176,7 @@ export const urlConfig = async (req: Request, res: Response) => {
       "https://soteria-client.onrender.com/checkout/failed";
 
     const updatedMerchant = await Merchant.findByIdAndUpdate(
-      merchantId,
+      { id: merchantId },
       {
         success_url: success_url || DEFAULT_SUCCESS,
         failed_url: failed_url || DEFAULT_FAILED,
