@@ -66,7 +66,9 @@ export default function Verification() {
           method: "POST",
 
           credentials: "include",
-
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             success_url: urls.success,
             failed_url: urls.failed,
@@ -83,6 +85,7 @@ export default function Verification() {
         ErrMsg("Server error: Could not save URLs");
       }
     } catch (e) {
+      console.error(e);
       ErrMsg("Network error occurred");
     } finally {
       setLoading(false);

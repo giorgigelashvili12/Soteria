@@ -155,7 +155,7 @@ export const publicIntent = async (req: Request, res: Response) => {
 export const urlConfig = async (req: Request, res: Response) => {
   try {
     // @ts-ignore
-    const merchantId = req.user?._id;
+    const merchantId = req.merchant.id;
     const { success_url, failed_url, base_redirect } = req.body;
 
     const urlRegex = /^(https?:\/\/)/;
