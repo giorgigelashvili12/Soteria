@@ -5,6 +5,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Error } from "../messages/Error";
 import { Success } from "../messages/Success";
+import img from "../../assets/images/google-logo.webp";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -190,7 +191,7 @@ export default function Login() {
                 className="flex gap-3 items-center  w-100 py-2 justify-center rounded-md"
                 to="https://soteria-q27e.onrender.com/api/v1/oauth/google"
               >
-                <img className="w-5" src="src/assets/images/google-logo.webp" />
+                <img className="w-5" src={img} />
 
                 <span>Log in with Google</span>
               </Link>

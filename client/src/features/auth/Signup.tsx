@@ -11,7 +11,7 @@ import {
 import { ChevronsUpDown } from "lucide-react";
 import { Error } from "../messages/Error";
 import { Success } from "../messages/Success";
-
+import img from "../../assets/images/google-logo.webp";
 const countries = [
   "Austria",
   "Belgium",
@@ -363,7 +363,7 @@ export default function Signup() {
                 className="flex gap-3 items-center  w-100 py-2 justify-center rounded-md"
                 to="https://soteria-q27e.onrender.com/api/v1/oauth/google"
               >
-                <img className="w-5" src="src/assets/images/google-logo.webp" />
+                <img className="w-5" src={img} />
 
                 <span>Sign up with Google</span>
               </Link>
