@@ -21,6 +21,7 @@ export const grossVolume = async (req: Request, res: Response) => {
       gross: t.amount || 0,
       net: (t.amount || 0) - (t.fee || 0),
     }));
+    console.log(chartData);
 
     res.json(chartData);
   } catch (e: any) {
